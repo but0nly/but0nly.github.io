@@ -1,5 +1,13 @@
 ---
 title: 关于使用 IndexDB 的坑
+date: 2025-01-18
+tags: 
+  - 前端
+  - 缓存
+categories: 前端
+keyworks:
+  - IndexDB
+  - 缓存
 ---
 
 由于IndexDB 如果频繁更新的话会导致数据丢失，跟SQL一样。
