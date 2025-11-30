@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>跨域的解决方案 | but0nly的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="CORS（跨域资源共享）跨域问题解决方案让服务端明确告诉浏览器，哪些资源可以由外部访问。 CORS的工作原理可分为：简易请求和预检请求 简易请求何为建议请求：  方法限制：GET、POST之一 Header限制：没有自定义Header Content-type限制：只能是 application&#x2F;x-www-form-urlencoded、multipart&#x2F;form-data 或 text&#x2F;pl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跨域的解决方案">
+<meta property="og:url" content="https://but0nly.github.io/2023/10/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E8%B7%A8%E5%9F%9F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/index.html">
+<meta property="og:site_name" content="but0nly的个人博客">
+<meta property="og:description" content="CORS（跨域资源共享）跨域问题解决方案让服务端明确告诉浏览器，哪些资源可以由外部访问。 CORS的工作原理可分为：简易请求和预检请求 简易请求何为建议请求：  方法限制：GET、POST之一 Header限制：没有自定义Header Content-type限制：只能是 application&#x2F;x-www-form-urlencoded、multipart&#x2F;form-data 或 text&#x2F;pl">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-10-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-11-30T15:05:07.954Z">
+<meta property="article:author" content="but0nly">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="浏览器">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="but0nly的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">but0nly的个人博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://but0nly.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-浏览器原理/跨域的解决方案" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E8%B7%A8%E5%9F%9F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="article-date">
+  <time class="dt-published" datetime="2023-10-04T16:00:00.000Z" itemprop="datePublished">2023-10-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      跨域的解决方案
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="CORS（跨域资源共享）跨域问题解决方案"><a href="#CORS（跨域资源共享）跨域问题解决方案" class="headerlink" title="CORS（跨域资源共享）跨域问题解决方案"></a>CORS（跨域资源共享）跨域问题解决方案</h3><p>让服务端明确告诉浏览器，哪些资源可以由外部访问。</p>
+<p><strong>CORS</strong>的工作原理可分为：<em>简易请求</em>和<em>预检请求</em></p>
+<h5 id="简易请求"><a href="#简易请求" class="headerlink" title="简易请求"></a>简易请求</h5><p>何为建议请求：</p>
+<ol>
+<li>方法限制：<code>GET</code>、<code>POST</code>之一</li>
+<li>Header限制：没有自定义<code>Header</code></li>
+<li><code>Content-type</code>限制：只能是 <code>application/x-www-form-urlencoded</code>、<code>multipart/form-data</code> 或 <code>text/plain</code></li>
+</ol>
+<p>此时的工作流程：</p>
+<ol>
+<li>浏览器发出请求：浏览器像往常一样发出请求，会在<code>Header</code>中自动添加一个<code>origin</code>字段，表明当前页面的源。</li>
+<li>服务端处理请求：服务端接受请求、处理数据，并准备响应。</li>
+<li>服务端添加<strong>CORS</strong>响应头：在响应头中添加一个关键字段：<ul>
+<li><code>Access-Control-Allow-Origin：&lt;Origin&gt;</code></li>
+<li>或者<code>Access-Control-Allow-Origin</code>允许所有源访问</li>
+</ul>
+</li>
+<li>浏览器检查：浏览器检查<code>Access-Control-Allow-Origin</code>的值<ul>
+<li>如果<code>Origin</code>与之匹配，浏览器就允许JavaScript访问数据</li>
+<li>如果不匹配或者缺少该字段，浏览器就会抛出<strong>跨域</strong>错误，并丢弃响应数据。</li>
+</ul>
+</li>
+</ol>
+<h5 id="预检请求"><a href="#预检请求" class="headerlink" title="预检请求"></a>预检请求</h5><p>不符合<em>简易请求</em>的都是<em>预检请求</em>。例如<code>PUT</code>&#x2F;<code>DELETE</code>方法的请求，或者请求中包含了自定义<code>Header</code>。</p>
+<p>工作流程：</p>
+<ol>
+<li>浏览器发送预检请求：在发出正式请求之前，浏览器会先自动发送一个<code>OPTIONS</code>方法的请求，这个就是<em>预检</em>，<em>预检</em>请求头中携带关键信息：<ul>
+<li><code>Origin</code>：实际请求的源</li>
+<li><code>Access-Control-Request-Method</code>：实际请求的方法</li>
+<li><code>Access-Control-Request-Headers</code>：实际请求携带的自定义<code>Header</code>列表</li>
+</ul>
+</li>
+<li>浏览器响应<em>预检</em>“：<ul>
+<li><code>Access-Control-Allow-Origin</code>：允许的源</li>
+<li><code>Access-Control-Allow-Method</code>：允许的请求方法</li>
+<li><code>Access-Control-Allow-Headers</code>：允许携带的自定义<code>Header</code>列表</li>
+<li><code>Access-Control-Max-Age</code>：缓存时间，表示接下来多少秒内，对于同一个源，不需要再发送<em>预检</em>请求。</li>
+</ul>
+</li>
+<li>浏览器判断<ul>
+<li>如果<em>预检</em>通过，浏览器才会发送第二次，也就是实际请求，</li>
+<li>如果<em>预检</em>失败，浏览器就直接抛出失败，不会发送实际请求。</li>
+</ul>
+</li>
+</ol>
+<h4 id="凭证共享"><a href="#凭证共享" class="headerlink" title="凭证共享"></a>凭证共享</h4><p>默认情况下，跨域请求不会带上<code>Cookie</code>和HTTP认证信息。如果需要携带凭证，需要在客户端和服务端同时配置<code>credentials</code>。</p>
+<ul>
+<li><strong>客户端 (JS)</strong>：在请求中设置 <code>credentials</code> 属性为 <code>include</code>。</li>
+<li><strong>服务器端 (响应头)</strong>：必须设置：<ul>
+<li><code>Access-Control-Allow-Credentials: true</code></li>
+<li><strong>注意</strong>：一旦设置了 <code>Access-Control-Allow-Credentials: true</code>，则 <strong><code>Access-Control-Allow-Origin</code> 的值就不能是 <code>*</code> (星号)</strong>，必须指定具体的源，以确保安全。</li>
+</ul>
+</li>
+</ul>
+<h3 id="跨域的解决方法"><a href="#跨域的解决方法" class="headerlink" title="跨域的解决方法"></a>跨域的解决方法</h3><p>最常用最安全稳定的解决方案就是：<strong>跨域代理</strong>，其他都是已经过时或者就是不安全不稳定。</p>
+<p><em><strong>跨域代理（Proxy）</strong></em><br>核心理念就是利用同源策略只限制客户端的特性。</p>
+<ol>
+<li>浏览器受到同源策略的原因，不能直接访问服务器B。</li>
+<li>但是代理服务器A却不受同源策略的影响。</li>
+</ol>
+<p>所以，解决办法是：我们在客户端和服务端B之前加一个代理服务器A。用于中转数据，不受同源策略影响。主要流程：</p>
+<ol>
+<li>客户端向<em>代理服务器A</em>发出请求。</li>
+<li><em>代理服务器A</em>收到请求后，代向<em>目标服务器B</em>发送请求。</li>
+<li><em>目标服务器B</em>收到请求后，将响应结果返回给<em>代理服务器A</em></li>
+<li><em>代理服务器A</em>再将响应转发给客户端。</li>
+</ol>
+<h5 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h5><p>分为<em>开发环境</em>和<em>生产环境</em></p>
+<p><em>开发环境</em>：<br>通过前端构建工具（<code>webpack dev server</code>、<code>vite</code>、<code>create react app</code>或者<code>Vue ClI</code>等等）提供的代理功能。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue.config.js 或 webpack dev server 配置</span></span><br><span class="line">devServer<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="comment">// 告诉开发服务器，将所有以 &#x27;/api&#x27; 开头的请求代理到目标服务器</span></span><br><span class="line">  proxy<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    &#x27;/api&#x27;<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      target<span class="punctuation">:</span> &#x27;http<span class="punctuation">:</span><span class="comment">//third-party-api.com&#x27;, // 目标服务器地址</span></span><br><span class="line">      changeOrigin<span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="comment">// 非常重要：将请求的 Host 字段改为目标服务器的 Host</span></span><br><span class="line">      pathRewrite<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        &#x27;^/api&#x27;<span class="punctuation">:</span> &#x27;&#x27; <span class="comment">// 可选：重写路径，例如将 /api/users 变为 /users</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><em>生产环境</em><br>需要使用成熟的Web服务器（<em>Niginx</em>或者<em>Apache</em>等）又或是<em>java</em>&#x2F;<em>node.js</em>等后端服务器作为反向代理。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">server <span class="punctuation">&#123;</span></span><br><span class="line">    listen <span class="number">80</span>;</span><br><span class="line">    server_name frontend.com; # 前端域名</span><br><span class="line"></span><br><span class="line">    location /api/ <span class="punctuation">&#123;</span></span><br><span class="line">        # 将所有 /api/ 开头的请求代理到目标服务器</span><br><span class="line">        proxy_pass http<span class="punctuation">:</span><span class="comment">//target-api.com/;</span></span><br><span class="line">        proxy_set_header Host $host;</span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"></span><br><span class="line">    location / <span class="punctuation">&#123;</span></span><br><span class="line">        # 匹配其他路径，用于提供前端静态文件</span><br><span class="line">        root /path/to/frontend/dist;</span><br><span class="line">        index index.html;</span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="代理服务器的优劣势"><a href="#代理服务器的优劣势" class="headerlink" title="代理服务器的优劣势"></a>代理服务器的优劣势</h5><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>优势</th>
+<th>劣势</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>灵活性</em></td>
+<td>几乎可以解决所有跨域问题。包括第三方API。</td>
+<td>需要配置或维护额外的代理服务器。</td>
+</tr>
+<tr>
+<td><em>安全性</em></td>
+<td>隐藏后端服务器或第三方API的真实地址。</td>
+<td>中间多了一层网络请求。略微增加延迟</td>
+</tr>
+<tr>
+<td><em>控制权</em></td>
+<td>可以对请求和响应进行拦截和修改（添加认证Header或者记录日志）</td>
+<td>如果配置不恰当，可能会带来安全问题。</td>
+</tr>
+</tbody></table>
+<h3 id="其他跨域解决方案"><a href="#其他跨域解决方案" class="headerlink" title="其他跨域解决方案"></a>其他跨域解决方案</h3><ul>
+<li><code>JSONP</code>：利用<code>&lt;script&gt;</code>标签没有跨域限制的原理。</li>
+<li><code>window.postMessge</code>：用于解决不同<code>iframe</code>窗口之间的通信。</li>
+<li><code>WebSockets</code>：一种天然允许的全双工通信协议。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/10/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E8%B7%A8%E5%9F%9F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" data-id="cuidoZFVq2jEM0zI2OQaNMhFX" data-title="跨域的解决方案" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E7%BC%93%E5%AD%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          HTTP 缓存
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E8%B7%A8%E5%9F%9F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">跨域</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">团队协作</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaScript/" style="font-size: 16.67px;">JavaScript</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 13.33px;">浏览器</a> <a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 10px;">缓存</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/18/%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/">关于使用 IndexDB 的坑</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/13/%E6%83%B3%E6%B3%95/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">客户端 Mock 解决方案</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">浏览器的性能指标</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E7%BC%93%E5%AD%98/">HTTP 缓存</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E8%B7%A8%E5%9F%9F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">跨域的解决方案</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 but0nly<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

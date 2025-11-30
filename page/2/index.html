@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>but0nly的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="分享一些技术总结和想法">
+<meta property="og:type" content="website">
+<meta property="og:title" content="but0nly的个人博客">
+<meta property="og:url" content="https://but0nly.github.io/page/2/index.html">
+<meta property="og:site_name" content="but0nly的个人博客">
+<meta property="og:description" content="分享一些技术总结和想法">
+<meta property="og:locale">
+<meta property="article:author" content="but0nly">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="but0nly的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">but0nly的个人博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://but0nly.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-JS深度复习/async和await" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/03/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/async%E5%92%8Cawait/" class="article-date">
+  <time class="dt-published" datetime="2023-10-02T16:00:00.000Z" itemprop="datePublished">2023-10-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/03/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/async%E5%92%8Cawait/">async 和 await</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>ES7语法</li>
+<li>同步语法，彻底消灭回调函数</li>
+<li><code>async</code> 定义在函数名称前方</li>
+<li><code>await</code> 后面追加<code>Promise</code> 和 添加了<code>async</code>的函数</li>
+</ul>
+<h3 id="async-和-await-与promise的关系"><a href="#async-和-await-与promise的关系" class="headerlink" title="async 和 await 与promise的关系"></a>async 和 await 与promise的关系</h3><ul>
+<li>虽然是同步执行，消灭回调函数</li>
+<li>并不排斥<code>Promise</code>， 而是相互相承</li>
+<li><code>async</code> 函数返回<code>Promise</code>对象</li>
+<li><code>await</code> 相当于 <code>Promise</code>的<code>then</code></li>
+<li><code>try...catch</code>来捕获异常，代替<code>Promise</code>的<code>catch</code></li>
+</ul>
+<h3 id="异步的本质"><a href="#异步的本质" class="headerlink" title="异步的本质"></a>异步的本质</h3><ul>
+<li>虽说 <code>async</code>&#x2F;<code>await</code> 是消灭异步回调的终极武器</li>
+<li><em>js</em> 还是单线程，还是需要异步回调，还得基于<strong>Event Loop</strong></li>
+<li><code>async/await</code> 只是一个语法糖</li>
+</ul>
+<p><code>await</code> 后面的代码就相当于一个异步回调</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">getName</span>(<span class="params">params</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">      <span class="title function_">resolve</span>(<span class="number">111</span>)</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">as</span>(<span class="params">params</span>) &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">getName</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(res); <span class="comment">// 111</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>); <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">as</span>().<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">11111</span>);</span><br><span class="line">&#125;) <span class="comment">// 11111</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/10/03/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/async%E5%92%8Cawait/" data-id="cuidqyD-dtztyyPDoD01f0ijn" data-title="async 和 await" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JS深度复习/Promise" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/02/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Promise/" class="article-date">
+  <time class="dt-published" datetime="2023-10-01T16:00:00.000Z" itemprop="datePublished">2023-10-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/02/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Promise/">Promise</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="概念与定义"><a href="#概念与定义" class="headerlink" title="概念与定义"></a>概念与定义</h3><ul>
+<li><strong>Promise</strong> 是一个对象<ul>
+<li>代表了一个未来才知道的值</li>
+</ul>
+</li>
+<li><strong>Promise</strong> 诞生的目的是为了解决回调地狱（<em>Callback Hell</em>）的问题，让异步代码更好的组织和阅读。</li>
+</ul>
+<blockquote>
+<p>特性： 链式调用， 将代码扁平化，更好的可读性和可维护性。</p>
+</blockquote>
+<h3 id="Promise的三种状态"><a href="#Promise的三种状态" class="headerlink" title="Promise的三种状态"></a><strong>Promise</strong>的三种状态</h3><ul>
+<li><code>pending</code>（等待）： 初始状态，异步操作正在进行中，既没有<em>成功</em>也没有<em>失败</em>；</li>
+<li><code>fulfilled</code>（已成功&#x2F;已解决）：操作成功，此时会有一个结果值(<em>value</em>);</li>
+<li><code>rejected</code>(已失败&#x2F;已拒绝)：操作失败，此时会有一个失败原因（reason，通常为<em>error</em>）</li>
+</ul>
+<blockquote>
+<p>一旦<strong>Promise</strong>状态从<code>pending</code> 变为<code>fulfilled</code>或<code>rejected</code>，它就处于<code>settled</code>，并且状态不可逆转。</p>
+</blockquote>
+<h3 id="Promise的实例方法"><a href="#Promise的实例方法" class="headerlink" title="Promise的实例方法"></a><strong>Promise</strong>的实例方法</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.then(onFulfilled, [onRejected])</code></td>
+<td>用于处理<code>fulfilled</code>状态的结果（第一个参数）和处理<code>rejected</code>状态的结果（第二个参数，可选）</td>
+</tr>
+<tr>
+<td><code>.catch(onRejected)</code></td>
+<td>专门处理<code>rejected</code>状态的错误。</td>
+</tr>
+<tr>
+<td><code>.finallya(onSettled)</code></td>
+<td>无论<strong>Promise</strong>最终返回的是<code>fulfilled</code>还是<code>rejected</code>，都会执行的回调。它的回调函数不接受任何参数，只负责作清理工作。</td>
+</tr>
+</tbody></table>
+<h3 id="Promise的静态方法"><a href="#Promise的静态方法" class="headerlink" title="Promise的静态方法"></a>Promise的静态方法</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>用途</th>
+<th>应用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Promise.all(iterable)</code></td>
+<td>1. 等待所有<strong>Promise</strong>完成（成功或失败）<br>2. 成功条件：所有的<strong>Promise</strong>都成功<code>fulfilled</code><br>3. 失败条件：只要有一个<strong>Promise</strong>返回<code>rejected</code></td>
+<td>同时加载多个资源，等待所有资源都加载完成后再进行下一步</td>
+</tr>
+<tr>
+<td><code>Promise.race(iterable)</code></td>
+<td>1. 等待最快的<strong>Promise</strong>完成<br>2. 成功&#x2F;失败条件：第一个完成（无论成功还是失败）的<strong>Promise</strong>，其状态和结果都作为<code>Promise.race()</code>的状态和结果</td>
+<td>限制响应时间</td>
+</tr>
+<tr>
+<td><code>Promise.allSettled(iterable)</code></td>
+<td>1. 等待所有的<strong>Promise</strong>都敲定（<code>settled</code>）<br>2. 成功条件：所有的<strong>Promise</strong>都敲定了（无论成功或失败）<br>3. 失败条件：永远不会失败<br></td>
+<td>执行多个不相关的异步操作，并且无论它们成功与否，都需要知道它们的执行结果</td>
+</tr>
+<tr>
+<td><code>Promise.any(iterable)</code></td>
+<td>1. 等待第一个成功返回的<strong>Promise</strong><br>2. 成功条件：只要有一个<strong>Promise</strong>成功<code>fulfilled</code><br>3. 失败条件：所有的<strong>Promise</strong>都失败<code>rejected</code></td>
+<td>从多个镜像或着数据源中获取<em>数据</em>，只要有一个成功返回即可</td>
+</tr>
+<tr>
+<td><code>Promise.resolve(value)</code></td>
+<td>1. 快速创建一个<em>成功</em>的<strong>Promise</strong><br>2. 返回：一个状态为<code>fulfilled</code>的<strong>Promise</strong>，并带有指定的值(<code>value</code>)<br>3. 如果本身就是一个<strong>Promise</strong>，就直接返回本身。</td>
+<td>将一个普通值封装成一个<strong>Promse</strong>，以便在<strong>Promise</strong>链中调用。</td>
+</tr>
+<tr>
+<td><code>Promise.reject(reason)</code></td>
+<td>1. 快速创建一个<em>失败</em>的<strong>Promise</strong><br>2. 返回：一个状态为<code>rejected</code>的<strong>Promise</strong>，并带有其失败原因</td>
+<td>在某些逻辑分支中，需要立即返回一个失败的 Promise。</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/10/02/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Promise/" data-id="cuidLrX4K7bgesmITvDoN6axB" data-title="Promise" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JS深度复习/Promise经典面试题" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/02/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Promise%E7%BB%8F%E5%85%B8%E9%9D%A2%E8%AF%95%E9%A2%98/" class="article-date">
+  <time class="dt-published" datetime="2023-10-01T16:00:00.000Z" itemprop="datePublished">2023-10-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/02/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Promise%E7%BB%8F%E5%85%B8%E9%9D%A2%E8%AF%95%E9%A2%98/">Promise经典面试题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>题目:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Promise</span>.<span class="title function_">resolve</span>().<span class="title function_">then</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="number">4</span>)</span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(res);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="title class_">Promise</span>.<span class="title function_">resolve</span>().<span class="title function_">then</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>);</span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>);</span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">3</span>);</span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">5</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>答案：0 1 2 3 4 5；</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><hr>
+<h3 id="then-的交替执行"><a href="#then-的交替执行" class="headerlink" title="then 的交替执行"></a>then 的交替执行</h3><ul>
+<li>如果有多个 <code>fulfilled</code>的<strong>Promise</strong>实例，同时执行<code>then</code>链式调用</li>
+<li><code>then</code>会交替执行</li>
+<li>这是编译器的优化，防止一个<strong>Promise</strong>占据太多时间</li>
+</ul>
+<h3 id="then中返回promise实例"><a href="#then中返回promise实例" class="headerlink" title="then中返回promise实例"></a>then中返回promise实例</h3><ul>
+<li>相当于多出了一个<strong>Promise</strong>实例</li>
+<li>也会遵循“交替执行”</li>
+<li>它和直接申明一个<strong>Promise</strong>实例，结果有些差异<ul>
+<li><em>会慢两拍</em></li>
+</ul>
+</li>
+</ul>
+<h3 id="慢两拍"><a href="#慢两拍" class="headerlink" title="慢两拍"></a>慢两拍</h3><ul>
+<li>第一拍：等待<code>pending</code>状态变成<code>fulfilled</code>状态</li>
+<li>第二拍：<code>then</code>函数挂载到<em>MicroTaskQueue（微任务队列）</em></li>
+</ul>
+<p>以上面代码演示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Promise</span>.<span class="title function_">resolve</span>().<span class="title function_">then</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">	<span class="comment">// 第一拍 等待pending状态变成fulfill状态</span></span><br><span class="line">	<span class="keyword">const</span> p = <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="number">0</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="title class_">Promise</span>.<span class="title function_">resolve</span>().<span class="title function_">then</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">		<span class="comment">// 第二拍 then函数挂载到微任务队列</span></span><br><span class="line">		p.<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">			<span class="variable language_">console</span>.<span class="title function_">log</span>(res);</span><br><span class="line">		&#125;).<span class="title function_">then</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">			<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>)</span><br><span class="line">		&#125;).<span class="title function_">then</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">			<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>)</span><br><span class="line">		&#125;).<span class="title function_">then</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">			<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">3</span>)</span><br><span class="line">		&#125;).<span class="title function_">then</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">			<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">4</span>)</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="分析结果"><a href="#分析结果" class="headerlink" title="分析结果"></a>分析结果</h3><ul>
+<li>输出0</li>
+<li><em>交替执行</em></li>
+<li>输出1</li>
+<li>遇到<code>then</code>返回<strong>Promise</strong>实例</li>
+<li><em>慢第一拍</em></li>
+<li>输出2</li>
+<li><em>慢第二拍</em></li>
+<li>输出3</li>
+<li><code>then</code>挂载完毕</li>
+<li><em>交替执行</em></li>
+<li>输出4</li>
+<li><em>交替执行</em></li>
+<li>输出5</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><hr>
+<ul>
+<li>Event Loop、宏任务、微任务</li>
+<li><code>then</code>交替执行</li>
+<li><code>then</code>返回<strong>Promise</strong>实例会慢两拍</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/10/02/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Promise%E7%BB%8F%E5%85%B8%E9%9D%A2%E8%AF%95%E9%A2%98/" data-id="cuidNzQYLJsH6QwGsQsf9Cc7E" data-title="Promise经典面试题" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-重学前端/网络知识" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/01/%E9%87%8D%E5%AD%A6%E5%89%8D%E7%AB%AF/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/" class="article-date">
+  <time class="dt-published" datetime="2023-09-30T16:00:00.000Z" itemprop="datePublished">2023-10-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/01/%E9%87%8D%E5%AD%A6%E5%89%8D%E7%AB%AF/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/">网络知识简单复习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="1-Domain-域名-——-“好记的门牌号”"><a href="#1-Domain-域名-——-“好记的门牌号”" class="headerlink" title="1. Domain (域名) —— “好记的门牌号”"></a>1. Domain (域名) —— “好记的门牌号”</h3><p>在网络世界里，每台计算机的真实地址是一串难记的数字（IP地址，如 <code>142.250.188.46</code>）。域名就是给这个数字地址起的一个<strong>好记的别名</strong>。</p>
+<ul>
+<li><strong>核心作用：</strong> 解决人类不擅长记忆长串数字的问题，提供易读的标识。</li>
+<li><strong>层级结构：</strong> 域名是分层的，从右向左阅读。<ul>
+<li><strong>顶级域名 (TLD):</strong> 如 <code>.com</code>, <code>.org</code>, <code>.cn</code>。</li>
+<li><strong>二级域名:</strong> 如 <code>google.com</code> 中的 <code>google</code>。</li>
+<li><strong>子域名:</strong> 如 <code>mail.google.com</code> 中的 <code>mail</code>。</li>
+</ul>
+</li>
+<li><strong>示例：</strong> <code>www.example.com</code> 是给人类看的，电脑最终还是需要将其转化为 IP 地址。</li>
+</ul>
+<blockquote>
+<p><strong>关键点：</strong> 域名本身不包含内容，它只是一个指向服务器 IP 的指针。</p>
+</blockquote>
+<hr>
+<h3 id="2-DNS-Domain-Name-System-——-“超级电话簿”"><a href="#2-DNS-Domain-Name-System-——-“超级电话簿”" class="headerlink" title="2. DNS (Domain Name System) —— “超级电话簿”"></a>2. DNS (Domain Name System) —— “超级电话簿”</h3><p>既然我们记的是域名，但电脑需要 IP 地址，中间就需要一个翻译官。<strong>DNS 就是互联网的通讯录&#x2F;电话簿。</strong></p>
+<ul>
+<li><p><strong>核心流程（解析过程）：</strong> 当你在浏览器输入 <code>www.google.com</code> 时：</p>
+<ol>
+<li><strong>查询本地缓存：</strong> 电脑会先看自己有没有记过这个地址。</li>
+<li><strong>查询递归服务器：</strong> 通常是你的 ISP（网络服务提供商）提供的 DNS 服务器。</li>
+<li><strong>层级查询：</strong> 如果递归服务器不知道，它会一层层去问：<ul>
+<li>问<strong>根服务器</strong>：“.com 的管理员在哪？”</li>
+<li>问**.com 服务器**：“<a target="_blank" rel="noopener" href="https://www.google.com/url?sa=E%5C&source=gmail%5C&q=google.com">https://www.google.com/url?sa=E\&amp;source=gmail\&amp;q=google.com</a> 的管理员在哪？”</li>
+<li>问<strong><a target="_blank" rel="noopener" href="https://www.google.com/url?sa=E%5C&source=gmail%5C&q=google.com">https://www.google.com/url?sa=E\&amp;source=gmail\&amp;q=google.com</a> 服务器</strong>：“<a target="_blank" rel="noopener" href="https://www.google.com/">www.google.com</a> 的 IP 是多少？”</li>
+</ul>
+</li>
+<li><strong>返回结果：</strong> 最终得到 IP 地址，浏览器开始连接。</li>
+</ol>
+</li>
+<li></li>
+</ul>
+<hr>
+<h3 id="3-TCP-IP-——-“交通基础设施与运输规则”"><a href="#3-TCP-IP-——-“交通基础设施与运输规则”" class="headerlink" title="3. TCP&#x2F;IP —— “交通基础设施与运输规则”"></a>3. TCP&#x2F;IP —— “交通基础设施与运输规则”</h3><p>拿到了 IP 地址，现在我们需要在这个地址和你的电脑之间建立连接并传输数据。<strong>TCP&#x2F;IP</strong> 是一组协议的集合，是互联网通信的规则。</p>
+<ul>
+<li><p><strong>IP (Internet Protocol) —— “定位与导航”：</strong></p>
+<ul>
+<li>负责将数据包从源头送达目的地（根据 IP 地址）。</li>
+<li>它类似于物流系统，负责寻找路径，但不保证货物（数据）是否完好无损，也不保证顺序。</li>
+</ul>
+</li>
+<li><p><strong>TCP (Transmission Control Protocol) —— “可靠的快递员”：</strong></p>
+<ul>
+<li>建立在 IP 之上，负责数据的<strong>可靠传输</strong>。</li>
+<li><strong>三次握手 (Three-way Handshake)：</strong> 在传输数据前，双方必须建立连接。<ol>
+<li><strong>客户端：</strong> “我想发数据给你，你在吗？” (SYN)</li>
+<li><strong>服务端：</strong> “我在，我准备好了，你发吧。” (SYN + ACK)</li>
+<li><strong>客户端：</strong> “好的，那我开始发了。” (ACK)</li>
+</ol>
+</li>
+<li><strong>拆包与重组：</strong> TCP 会把大数据拆成小包，按顺序编号。如果中间丢包了，TCP 会要求重传，确保数据完整。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>比喻：</strong> IP 是公路系统（负责通达），TCP 是挂号信服务（负责确认签收和完整性）。</p>
+</blockquote>
+<hr>
+<h3 id="4-HTTP-HyperText-Transfer-Protocol-——-“对话的语言”"><a href="#4-HTTP-HyperText-Transfer-Protocol-——-“对话的语言”" class="headerlink" title="4. HTTP (HyperText Transfer Protocol) —— “对话的语言”"></a>4. HTTP (HyperText Transfer Protocol) —— “对话的语言”</h3><p>连接建立好（TCP&#x2F;IP）并找到对方（DNS&#x2F;Domain）之后，客户端（浏览器）和服务器之间需要交流具体的业务内容。<strong>HTTP 就是他们沟通的标准语言。</strong></p>
+<ul>
+<li><p><strong>请求&#x2F;响应模型 (Request&#x2F;Response)：</strong></p>
+<ul>
+<li><strong>请求 (Request):</strong> 浏览器发话。例如：“请给我 <code>index.html</code> 这个文件。”<ul>
+<li><strong>Method:</strong> 动作类型。常见的有 <code>GET</code> (获取数据), <code>POST</code> (提交数据)。</li>
+</ul>
+</li>
+<li><strong>响应 (Response):</strong> 服务器回话。例如：“好的，这是你要的文件。” 或者 “抱歉，没找到。”<ul>
+<li><strong>Status Code:</strong> 状态码。<ul>
+<li><code>200 OK</code>: 成功。</li>
+<li><code>404 Not Found</code>: 找不到资源。</li>
+<li><code>500 Internal Server Error</code>: 服务器炸了。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>HTTPS:</strong> HTTP 的安全版（S 代表 Secure）。在 HTTP 和 TCP 之间加了一层 <strong>SSL&#x2F;TLS</strong> 加密层，防止数据在传输过程中被窃听或篡改。</p>
+</li>
+</ul>
+<hr>
+<h3 id="经典面试题：当你在浏览器输入网址并回车，发生了什么？-网络知识"><a href="#经典面试题：当你在浏览器输入网址并回车，发生了什么？-网络知识" class="headerlink" title="经典面试题：当你在浏览器输入网址并回车，发生了什么？(网络知识)"></a>经典面试题：当你在浏览器输入网址并回车，发生了什么？(网络知识)</h3><ol>
+<li><strong>Domain:</strong> 用户输入 <code>www.example.com</code>。</li>
+<li><strong>DNS:</strong> 浏览器通过 DNS 系统查询到该域名的 IP 地址（例如 <code>93.184.216.34</code>）。</li>
+<li><strong>TCP&#x2F;IP:</strong><ul>
+<li>浏览器向该 IP 发起 <strong>TCP 三次握手</strong>，建立连接。</li>
+<li><strong>IP</strong> 协议负责找到路径将数据包送达。</li>
+</ul>
+</li>
+<li><strong>HTTP:</strong><ul>
+<li>连接建立后，浏览器发送 <strong>HTTP GET 请求</strong>。</li>
+<li>服务器收到请求，处理后返回 <strong>HTTP 响应</strong>（HTML 页面数据）。</li>
+</ul>
+</li>
+<li><strong>渲染:</strong> 浏览器解析 HTML，再次发起请求获取图片、CSS，最终呈现页面。</li>
+<li><strong>断开:</strong> 数据传输完毕，TCP 进行四次挥手断开连接。</li>
+</ol>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/10/01/%E9%87%8D%E5%AD%A6%E5%89%8D%E7%AB%AF/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/" data-id="cuidGN6cqhz7lnHxqUAqqbXwX" data-title="网络知识简单复习" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JS深度复习/作用域" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/01/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="article-date">
+  <time class="dt-published" datetime="2023-09-30T16:00:00.000Z" itemprop="datePublished">2023-10-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/01/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/%E4%BD%9C%E7%94%A8%E5%9F%9F/">作用域与作用域链</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><h4 id="全局作用域"><a href="#全局作用域" class="headerlink" title="全局作用域"></a>全局作用域</h4><ul>
+<li>js文件内</li>
+</ul>
+<h4 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h4><ul>
+<li>函数包裹</li>
+</ul>
+<h4 id="块级作用域（ES6新增）"><a href="#块级作用域（ES6新增）" class="headerlink" title="块级作用域（ES6新增）"></a>块级作用域（ES6新增）</h4><ul>
+<li>let 申明</li>
+<li>{} 包裹</li>
+</ul>
+<h3 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h3><h4 id="原理与定义"><a href="#原理与定义" class="headerlink" title="原理与定义"></a>原理与定义</h4><p>作用域链就好比一个 <strong>有序列表</strong> （或者说是<strong>链条</strong>），它包含了当前执行代码所能访问的所有<em>活动对象</em> 和 <em>变量环境</em></p>
+<p>用途：当<em>JavaScript查找一个变量</em>时，它会沿着<strong>链条</strong>，从<em>内部作用域</em> 向 <em>外部作用域</em> 逐步查找，直到找到该变量为止。如果都没有找到就会导致<code>ReferenceError</code></p>
+<p><img src="/../imgs/1.png" alt="&#39;图片&#39;"></p>
+<h4 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h4><ol>
+<li>从内到外</li>
+<li>每个函数定义的时候，就确定了它的 <em>父级作用域</em></li>
+<li>每个函数执行的时候，都会将自己的<em>变量环境</em> 移到<strong>作用域链</strong>的最前端</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/10/01/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/%E4%BD%9C%E7%94%A8%E5%9F%9F/" data-id="cuidn4-vxBdcLISbOWtlQBsNd" data-title="作用域与作用域链" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JS深度复习/原型链" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/01/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="article-date">
+  <time class="dt-published" datetime="2023-09-30T16:00:00.000Z" itemprop="datePublished">2023-10-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/01/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/%E5%8E%9F%E5%9E%8B%E9%93%BE/">原型和基于其的执行规则（原型链）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p><strong>原型</strong>本质个<em>对象</em></p>
+<ul>
+<li><em>显式原型</em><ul>
+<li>构造函数的原型：<code>Construct.prototype</code><ul>
+<li><pre><code class="language-js">function Cat(name){
+    this.name = name
+}
+
+// `Construct.prototype` 本质是个对象
+// 作用： 用于存储所有由构造函数创建的实例所共享的属性和方法。
+Cat.prototype.sayName = function(){
+    console.log(this.name)
+}
+
+
+const kitty = new Cat(&#39;kitty&#39;);
+kitty.sayName(); // kitty
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- *隐式原型*</span><br><span class="line">	- 实例的`__proto__`</span><br><span class="line">	- 是构成**原型链**的链接</span><br><span class="line">	- *题外知识*：`__proto__`是非标准且已弃用的属性。推荐使用`Object.getPrototypeOf()`来获取对象原型。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">*实例的原型 === 构造函数的原型*, 示例：</span><br><span class="line">```js</span><br><span class="line">const obj = new Object();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">obj.__proto__ ==== Object.prototype // true </span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="基于原型的执行规则"><a href="#基于原型的执行规则" class="headerlink" title="基于原型的执行规则"></a>基于原型的执行规则</h3><ol>
+<li>获取一个对象的属性或者方法时</li>
+<li>先会在对象自身去查找</li>
+<li>如果没有，就会顺着属性<code>__proto__</code>去查找，直到找到属性、对象或着达原型链的终点（<code>null</code>）</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/10/01/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/%E5%8E%9F%E5%9E%8B%E9%93%BE/" data-id="cuidrZJ1JhFM-d6I0Wnaar-eZ" data-title="原型和基于其的执行规则（原型链）" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JS深度复习/闭包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/01/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/%E9%97%AD%E5%8C%85/" class="article-date">
+  <time class="dt-published" datetime="2023-09-30T16:00:00.000Z" itemprop="datePublished">2023-10-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/01/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/%E9%97%AD%E5%8C%85/">如何理解闭包</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>闭包是一种特殊应用，它是可以使<strong>内部函数</strong>访问<strong>外部函数</strong>的变量和函数，并将这个访问的能力打包带走。即使外部函数已经执行完毕，这些变量和函数依然会存在（<em>因为在函数内部存在引用，没有被垃圾回收机制回收</em>）</p>
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><h2 id="数据私有化"><a href="#数据私有化" class="headerlink" title="数据私有化"></a>数据私有化</h2><p><strong>模块模式</strong>： 利用闭包创建一个<em>数据私有化</em>的“模块”</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createCounter</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">function</span> <span class="title function_">counter</span>(<span class="params"></span>)&#123;</span><br><span class="line">		count+=<span class="number">1</span>;</span><br><span class="line">		<span class="variable language_">console</span>.<span class="title function_">log</span>(count)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> counter1 = <span class="title function_">createCounter</span>();</span><br><span class="line"></span><br><span class="line"><span class="title function_">counter1</span>() <span class="comment">// 1</span></span><br><span class="line"><span class="title function_">counter1</span>() <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="处理回调函数"><a href="#处理回调函数" class="headerlink" title="处理回调函数"></a>处理回调函数</h2><p>事件处理器，例如列表中的某个按钮绑定事件。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createItemClickHandler</span>(<span class="params">productId</span>) &#123;</span><br><span class="line">    <span class="comment">// 外部函数：它接收并私有化了 productId</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">event</span>) &#123;</span><br><span class="line">        <span class="comment">// 内部函数（闭包）：这是真正的事件处理器</span></span><br><span class="line">        <span class="comment">// 它在将来（点击时）才会被调用，但它永远记住了 productId 的值</span></span><br><span class="line"></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`你点击了商品 ID 为 <span class="subst">$&#123;productId&#125;</span> 的按钮。`</span>);</span><br><span class="line">        <span class="comment">// 可以在这里执行 API 调用、跳转页面等操作...</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ----------------- 使用闭包 -----------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 假设我们有商品 A (ID 101) 和 商品 B (ID 202)</span></span><br><span class="line"><span class="keyword">const</span> handlerA = <span class="title function_">createItemClickHandler</span>(<span class="number">101</span>); <span class="comment">// 创建一个记住 101 的闭包</span></span><br><span class="line"><span class="keyword">const</span> handlerB = <span class="title function_">createItemClickHandler</span>(<span class="number">202</span>); <span class="comment">// 创建一个记住 202 的闭包</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 将这些闭包附加到对应的按钮上 (我们用函数调用来模拟点击)</span></span><br><span class="line"><span class="comment">// buttonA.addEventListener(&#x27;click&#x27;, handlerA);</span></span><br><span class="line"><span class="comment">// buttonB.addEventListener(&#x27;click&#x27;, handlerB);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 模拟点击</span></span><br><span class="line"><span class="title function_">handlerA</span>(); </span><br><span class="line"><span class="title function_">handlerB</span>();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>简易的cache工具</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/10/01/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/%E9%97%AD%E5%8C%85/" data-id="cuid-G2Y_TWJzLi-nP1zOmzez" data-title="如何理解闭包" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-关于我" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/09/30/%E5%85%B3%E4%BA%8E%E6%88%91/" class="article-date">
+  <time class="dt-published" datetime="2023-09-29T16:00:00.000Z" itemprop="datePublished">2023-09-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/09/30/%E5%85%B3%E4%BA%8E%E6%88%91/">but0nly的个人博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>哈喽,大家好,我是but0nly,这是我的技术博客.<br>emmm,我会在这里分享我的一些技术总结以及关于技术上的一些想法~</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/09/30/%E5%85%B3%E4%BA%8E%E6%88%91/" data-id="cuidFVQUrwllyggfgFW_QauE5" data-title="but0nly的个人博客" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; zurück</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">团队协作</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaScript/" style="font-size: 16.67px;">JavaScript</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 13.33px;">浏览器</a> <a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 10px;">缓存</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/18/%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/">关于使用 IndexDB 的坑</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/13/%E6%83%B3%E6%B3%95/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">客户端 Mock 解决方案</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">浏览器的性能指标</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E7%BC%93%E5%AD%98/">HTTP 缓存</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E8%B7%A8%E5%9F%9F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">跨域的解决方案</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 but0nly<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

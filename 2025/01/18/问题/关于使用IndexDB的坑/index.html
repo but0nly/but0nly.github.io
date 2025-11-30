@@ -9,7 +9,7 @@
   <meta name="description" content="由于IndexDB 如果频繁更新的话会导致数据丢失，跟SQL一样。 解决方案内存缓存 + 节流 + 批量写入  创建一个JS对象，用于存储每次操作的key和value； 创建一个autoSave方法，里面就是通过创建readwrite事务，然后put新的配置信息。 给autoSave添加节流，每次触发1s后执行。 创建一个JS赋值函数，附带监听JS对象的赋值是否存在&#x3D;&#x3D;变化&amp;#">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于使用 IndexDB 的坑">
-<meta property="og:url" content="https://but0nly.github.io/2025/01/18/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/index.html">
+<meta property="og:url" content="https://but0nly.github.io/2025/01/18/%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/index.html">
 <meta property="og:site_name" content="but0nly的个人博客">
 <meta property="og:description" content="由于IndexDB 如果频繁更新的话会导致数据丢失，跟SQL一样。 解决方案内存缓存 + 节流 + 批量写入  创建一个JS对象，用于存储每次操作的key和value； 创建一个autoSave方法，里面就是通过创建readwrite事务，然后put新的配置信息。 给autoSave添加节流，每次触发1s后执行。 创建一个JS赋值函数，附带监听JS对象的赋值是否存在&#x3D;&#x3D;变化&amp;#">
 <meta property="og:locale">
@@ -75,9 +75,9 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-关于使用IndexDB的坑" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-问题/关于使用IndexDB的坑" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/01/18/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/" class="article-date">
+    <a href="/2025/01/18/%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/" class="article-date">
   <time class="dt-published" datetime="2025-01-17T16:00:00.000Z" itemprop="datePublished">2025-01-18</time>
 </a>
     
@@ -115,7 +115,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://but0nly.github.io/2025/01/18/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/" data-id="cuidJxSVZgS71AWTLGoDjo3mc" data-title="关于使用 IndexDB 的坑" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      <a data-url="https://but0nly.github.io/2025/01/18/%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/" data-id="cuidlaYBPjvLq42qJCpblxHLp" data-title="关于使用 IndexDB 的坑" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
       
       
       
@@ -128,7 +128,7 @@
 <nav id="article-nav">
   
   
-    <a href="/2024/02/13/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2024/02/13/%E6%83%B3%E6%B3%95/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Älter</strong>
       <div class="article-nav-title">客户端 Mock 解决方案</div>
     </a>
@@ -157,7 +157,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
     </div>
   </div>
 
@@ -167,7 +167,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 10px;">缓存</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a>
+      <a href="/tags/JavaScript/" style="font-size: 16.67px;">JavaScript</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 13.33px;">浏览器</a> <a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 10px;">缓存</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a>
     </div>
   </div>
 
@@ -189,19 +189,23 @@
       <ul>
         
           <li>
-            <a href="/2025/01/18/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/">关于使用 IndexDB 的坑</a>
+            <a href="/2025/01/18/%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/">关于使用 IndexDB 的坑</a>
           </li>
         
           <li>
-            <a href="/2024/02/13/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">客户端 Mock 解决方案</a>
+            <a href="/2024/02/13/%E6%83%B3%E6%B3%95/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">客户端 Mock 解决方案</a>
           </li>
         
           <li>
-            <a href="/2023/10/01/%E9%87%8D%E5%AD%A6%E5%89%8D%E7%AB%AF/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/">网络知识简单复习</a>
+            <a href="/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">浏览器的性能指标</a>
           </li>
         
           <li>
-            <a href="/2023/09/30/%E5%85%B3%E4%BA%8E%E6%88%91/">but0nly的个人博客</a>
+            <a href="/2023/10/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E7%BC%93%E5%AD%98/">HTTP 缓存</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E8%B7%A8%E5%9F%9F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">跨域的解决方案</a>
           </li>
         
       </ul>

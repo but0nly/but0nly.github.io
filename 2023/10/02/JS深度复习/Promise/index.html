@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Promise | but0nly的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="概念与定义 Promise 是一个对象 代表了一个未来才知道的值   Promise 诞生的目的是为了解决回调地狱（Callback Hell）的问题，让异步代码更好的组织和阅读。   特性： 链式调用， 将代码扁平化，更好的可读性和可维护性。  Promise的三种状态 pending（等待）： 初始状态，异步操作正在进行中，既没有成功也没有失败； fulfilled（已成功&#x2F;已解决）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Promise">
+<meta property="og:url" content="https://but0nly.github.io/2023/10/02/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Promise/index.html">
+<meta property="og:site_name" content="but0nly的个人博客">
+<meta property="og:description" content="概念与定义 Promise 是一个对象 代表了一个未来才知道的值   Promise 诞生的目的是为了解决回调地狱（Callback Hell）的问题，让异步代码更好的组织和阅读。   特性： 链式调用， 将代码扁平化，更好的可读性和可维护性。  Promise的三种状态 pending（等待）： 初始状态，异步操作正在进行中，既没有成功也没有失败； fulfilled（已成功&#x2F;已解决）">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-10-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-11-30T14:51:23.969Z">
+<meta property="article:author" content="but0nly">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="but0nly的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">but0nly的个人博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://but0nly.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-JS深度复习/Promise" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/02/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Promise/" class="article-date">
+  <time class="dt-published" datetime="2023-10-01T16:00:00.000Z" itemprop="datePublished">2023-10-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Promise
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="概念与定义"><a href="#概念与定义" class="headerlink" title="概念与定义"></a>概念与定义</h3><ul>
+<li><strong>Promise</strong> 是一个对象<ul>
+<li>代表了一个未来才知道的值</li>
+</ul>
+</li>
+<li><strong>Promise</strong> 诞生的目的是为了解决回调地狱（<em>Callback Hell</em>）的问题，让异步代码更好的组织和阅读。</li>
+</ul>
+<blockquote>
+<p>特性： 链式调用， 将代码扁平化，更好的可读性和可维护性。</p>
+</blockquote>
+<h3 id="Promise的三种状态"><a href="#Promise的三种状态" class="headerlink" title="Promise的三种状态"></a><strong>Promise</strong>的三种状态</h3><ul>
+<li><code>pending</code>（等待）： 初始状态，异步操作正在进行中，既没有<em>成功</em>也没有<em>失败</em>；</li>
+<li><code>fulfilled</code>（已成功&#x2F;已解决）：操作成功，此时会有一个结果值(<em>value</em>);</li>
+<li><code>rejected</code>(已失败&#x2F;已拒绝)：操作失败，此时会有一个失败原因（reason，通常为<em>error</em>）</li>
+</ul>
+<blockquote>
+<p>一旦<strong>Promise</strong>状态从<code>pending</code> 变为<code>fulfilled</code>或<code>rejected</code>，它就处于<code>settled</code>，并且状态不可逆转。</p>
+</blockquote>
+<h3 id="Promise的实例方法"><a href="#Promise的实例方法" class="headerlink" title="Promise的实例方法"></a><strong>Promise</strong>的实例方法</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.then(onFulfilled, [onRejected])</code></td>
+<td>用于处理<code>fulfilled</code>状态的结果（第一个参数）和处理<code>rejected</code>状态的结果（第二个参数，可选）</td>
+</tr>
+<tr>
+<td><code>.catch(onRejected)</code></td>
+<td>专门处理<code>rejected</code>状态的错误。</td>
+</tr>
+<tr>
+<td><code>.finallya(onSettled)</code></td>
+<td>无论<strong>Promise</strong>最终返回的是<code>fulfilled</code>还是<code>rejected</code>，都会执行的回调。它的回调函数不接受任何参数，只负责作清理工作。</td>
+</tr>
+</tbody></table>
+<h3 id="Promise的静态方法"><a href="#Promise的静态方法" class="headerlink" title="Promise的静态方法"></a>Promise的静态方法</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>用途</th>
+<th>应用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Promise.all(iterable)</code></td>
+<td>1. 等待所有<strong>Promise</strong>完成（成功或失败）<br>2. 成功条件：所有的<strong>Promise</strong>都成功<code>fulfilled</code><br>3. 失败条件：只要有一个<strong>Promise</strong>返回<code>rejected</code></td>
+<td>同时加载多个资源，等待所有资源都加载完成后再进行下一步</td>
+</tr>
+<tr>
+<td><code>Promise.race(iterable)</code></td>
+<td>1. 等待最快的<strong>Promise</strong>完成<br>2. 成功&#x2F;失败条件：第一个完成（无论成功还是失败）的<strong>Promise</strong>，其状态和结果都作为<code>Promise.race()</code>的状态和结果</td>
+<td>限制响应时间</td>
+</tr>
+<tr>
+<td><code>Promise.allSettled(iterable)</code></td>
+<td>1. 等待所有的<strong>Promise</strong>都敲定（<code>settled</code>）<br>2. 成功条件：所有的<strong>Promise</strong>都敲定了（无论成功或失败）<br>3. 失败条件：永远不会失败<br></td>
+<td>执行多个不相关的异步操作，并且无论它们成功与否，都需要知道它们的执行结果</td>
+</tr>
+<tr>
+<td><code>Promise.any(iterable)</code></td>
+<td>1. 等待第一个成功返回的<strong>Promise</strong><br>2. 成功条件：只要有一个<strong>Promise</strong>成功<code>fulfilled</code><br>3. 失败条件：所有的<strong>Promise</strong>都失败<code>rejected</code></td>
+<td>从多个镜像或着数据源中获取<em>数据</em>，只要有一个成功返回即可</td>
+</tr>
+<tr>
+<td><code>Promise.resolve(value)</code></td>
+<td>1. 快速创建一个<em>成功</em>的<strong>Promise</strong><br>2. 返回：一个状态为<code>fulfilled</code>的<strong>Promise</strong>，并带有指定的值(<code>value</code>)<br>3. 如果本身就是一个<strong>Promise</strong>，就直接返回本身。</td>
+<td>将一个普通值封装成一个<strong>Promse</strong>，以便在<strong>Promise</strong>链中调用。</td>
+</tr>
+<tr>
+<td><code>Promise.reject(reason)</code></td>
+<td>1. 快速创建一个<em>失败</em>的<strong>Promise</strong><br>2. 返回：一个状态为<code>rejected</code>的<strong>Promise</strong>，并带有其失败原因</td>
+<td>在某些逻辑分支中，需要立即返回一个失败的 Promise。</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/10/02/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Promise/" data-id="cuidLrX4K7bgesmITvDoN6axB" data-title="Promise" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/03/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/async%E5%92%8Cawait/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          async 和 await
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/02/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Promise%E7%BB%8F%E5%85%B8%E9%9D%A2%E8%AF%95%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Promise经典面试题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">团队协作</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaScript/" style="font-size: 16.67px;">JavaScript</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 13.33px;">浏览器</a> <a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 10px;">缓存</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/18/%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/">关于使用 IndexDB 的坑</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/13/%E6%83%B3%E6%B3%95/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">客户端 Mock 解决方案</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">浏览器的性能指标</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E7%BC%93%E5%AD%98/">HTTP 缓存</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E8%B7%A8%E5%9F%9F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">跨域的解决方案</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 but0nly<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

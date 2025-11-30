@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Event Loop | but0nly的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="背景Event Loop，意如其名：事件循环 &#x2F; 事件轮询  JS是单线程执行 不能同时执行JS和DOM渲染   所以就有了&#x3D;&#x3D;异步&#x3D;&#x3D;这个解决方案 异步要基于回调来实现 Event Loop 就是这个异步回调实现方案   浏览器环境Event Loop 的过程 同步代码，一行一行的在Call stack中执行 遇到异步代码，先”记录“起来，等待（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Event Loop">
+<meta property="og:url" content="https://but0nly.github.io/2023/10/03/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Even%20Loop/index.html">
+<meta property="og:site_name" content="but0nly的个人博客">
+<meta property="og:description" content="背景Event Loop，意如其名：事件循环 &#x2F; 事件轮询  JS是单线程执行 不能同时执行JS和DOM渲染   所以就有了&#x3D;&#x3D;异步&#x3D;&#x3D;这个解决方案 异步要基于回调来实现 Event Loop 就是这个异步回调实现方案   浏览器环境Event Loop 的过程 同步代码，一行一行的在Call stack中执行 遇到异步代码，先”记录“起来，等待（">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-10-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-11-30T14:56:44.621Z">
+<meta property="article:author" content="but0nly">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="but0nly的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">but0nly的个人博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://but0nly.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-JS深度复习/Even Loop" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/03/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Even%20Loop/" class="article-date">
+  <time class="dt-published" datetime="2023-10-02T16:00:00.000Z" itemprop="datePublished">2023-10-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Event Loop
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p><strong>Event Loop</strong>，意如其名：<em>事件循环 &#x2F; 事件轮询</em></p>
+<ul>
+<li><em>JS</em>是单线程执行<ul>
+<li>不能同时执行<em>JS</em>和<em>DOM</em>渲染</li>
+</ul>
+</li>
+<li>所以就有了&#x3D;&#x3D;异步&#x3D;&#x3D;这个解决方案</li>
+<li>异步要基于回调来实现</li>
+<li><strong>Event Loop</strong> 就是这个异步回调实现方案</li>
+</ul>
+<hr>
+<h2 id="浏览器环境"><a href="#浏览器环境" class="headerlink" title="浏览器环境"></a>浏览器环境</h2><h3 id="Event-Loop-的过程"><a href="#Event-Loop-的过程" class="headerlink" title="Event Loop 的过程"></a>Event Loop 的过程</h3><ul>
+<li>同步代码，一行一行的在<em>Call stack</em>中执行</li>
+<li>遇到异步代码，先”记录“起来，等待（耗时时间）在 <em>Web APIs</em> &#x2F; <em>Node APIs</em>中执行。</li>
+<li><em>Web APIs</em> 执行完成后，异步任务的回调函数就可以放入到<em>Callback Queue</em>中</li>
+<li>当 <em>Call Stack</em> 清空时（同步代码执行完了, 逻辑循环结束之后）</li>
+<li>触发<strong>Event Loop</strong>机制 （不断观察）</li>
+<li>轮询查找<em>Callback Queue</em>，如果有回调方法则放入<em>Call stack</em> 中执行</li>
+<li>然后继续轮询（像永动机一样）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>核心组件</th>
+<th>作用</th>
+<th>优先级&#x2F;调度</th>
+<th>示例</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>Call Stack</em></td>
+<td>执行同步代码</td>
+<td>最高，必须清空</td>
+<td><code>console.log</code>、<code>for()</code></td>
+<td></td>
+</tr>
+<tr>
+<td><em>Web APIs</em></td>
+<td>处理异步代码的等待时间</td>
+<td>不参与调度，只计时&#x2F;等待</td>
+<td><code>setTimeout</code>、<code>fetch()</code>、<code>addEventListener()</code></td>
+<td></td>
+</tr>
+<tr>
+<td><em>Micro-Task</em></td>
+<td>存放微任务的回调函数</td>
+<td>次高，同步代码执行完成后执行微任务，在每个宏任务执行完之后也会清空微任务</td>
+<td><code>promise</code>、<code>async/await</code></td>
+<td></td>
+</tr>
+<tr>
+<td><em>Macro-Task</em></td>
+<td>存放宏任务的回调函数</td>
+<td>最低，每个循环只取一个执行</td>
+<td><code>setTimeout</code>、<code>setImmediate</code>、<code>I/O</code>、UI渲染</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Event Loop</strong></td>
+<td>驱动机制</td>
+<td>不断检查<em>Call Stack</em>状态，驱动任务进入</td>
+<td>永远执行</td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="微任务-DOM的情况下"><a href="#微任务-DOM的情况下" class="headerlink" title="微任务 + DOM的情况下"></a>微任务 + DOM的情况下</h3><ol>
+<li><em>Call Stack</em>清空</li>
+<li>执行当前的微任务， <em>Macro-Task</em></li>
+<li>尝试<em>DOM</em>渲染</li>
+<li>触发<strong>Event Loop</strong> 机制</li>
+</ol>
+<hr>
+<h2 id="Node-js环境（浅说）"><a href="#Node-js环境（浅说）" class="headerlink" title="Node.js环境（浅说）"></a>Node.js环境（浅说）</h2><p><strong>Event Loop</strong>分为几个阶段</p>
+<ol>
+<li><em>Timers</em>阶段 （处理<code>setTimeout</code>、<code>setInterval</code>）</li>
+<li><em>Poll</em>阶段 （处理IO、网络服务）</li>
+<li><em>Check</em>阶段 （处理<code>setImmdiate</code>）</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/10/03/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Even%20Loop/" data-id="cuidkkiCjbAbTASZGxbPO9n0O" data-title="Event Loop" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/10/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E9%87%8D%E6%8E%92%E5%92%8C%E9%87%8D%E7%BB%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          重排和重绘
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/03/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/async%E5%92%8Cawait/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">async 和 await</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">团队协作</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaScript/" style="font-size: 16.67px;">JavaScript</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 13.33px;">浏览器</a> <a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 10px;">缓存</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/18/%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/">关于使用 IndexDB 的坑</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/13/%E6%83%B3%E6%B3%95/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">客户端 Mock 解决方案</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">浏览器的性能指标</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E7%BC%93%E5%AD%98/">HTTP 缓存</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E8%B7%A8%E5%9F%9F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">跨域的解决方案</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 but0nly<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

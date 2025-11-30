@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>浏览器的性能指标 | but0nly的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="浏览器性能指标主要关注用户感知，即用户觉得页面加载速度如何。 三个重要指标：  LCP（最大的内容绘制）：衡量页面主要内容的加载所需时间。 INP（交互到下一次绘制）：衡量网页的响应性。 CLS (累积布局偏移)：衡量页面加载中，非预期的视觉内容移动的累积总分  LCPLCP是衡量浏览器渲染视口内可见的最大图像或者元素所需时间。 一个优秀的LCP目标是页面加载时间在2.5以内。 关键渲染路径：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器的性能指标">
+<meta property="og:url" content="https://but0nly.github.io/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/index.html">
+<meta property="og:site_name" content="but0nly的个人博客">
+<meta property="og:description" content="浏览器性能指标主要关注用户感知，即用户觉得页面加载速度如何。 三个重要指标：  LCP（最大的内容绘制）：衡量页面主要内容的加载所需时间。 INP（交互到下一次绘制）：衡量网页的响应性。 CLS (累积布局偏移)：衡量页面加载中，非预期的视觉内容移动的累积总分  LCPLCP是衡量浏览器渲染视口内可见的最大图像或者元素所需时间。 一个优秀的LCP目标是页面加载时间在2.5以内。 关键渲染路径：">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-10-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-11-30T15:08:13.738Z">
+<meta property="article:author" content="but0nly">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="性能优化">
+<meta property="article:tag" content="浏览器">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="but0nly的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">but0nly的个人博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://but0nly.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-浏览器原理/浏览器的性能指标" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/" class="article-date">
+  <time class="dt-published" datetime="2023-10-06T16:00:00.000Z" itemprop="datePublished">2023-10-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      浏览器的性能指标
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>浏览器性能指标主要关注<strong>用户感知</strong>，即用户觉得页面加载速度如何。</p>
+<p>三个重要指标：</p>
+<ul>
+<li><em><strong>LCP</strong></em>（最大的内容绘制）：衡量页面主要内容的加载所需时间。</li>
+<li><em><strong>INP</strong></em>（交互到下一次绘制）：衡量网页的响应性。</li>
+<li><em><strong>CLS</strong></em> (累积布局偏移)：衡量页面加载中，非预期的视觉内容移动的累积总分</li>
+</ul>
+<h3 id="LCP"><a href="#LCP" class="headerlink" title="LCP"></a><em><strong>LCP</strong></em></h3><p><em><strong>LCP</strong></em>是衡量浏览器渲染<em>视口内可见的最大图像或者元素</em>所需时间。</p>
+<p>一个优秀的LCP目标是页面加载时间在<strong>2.5以内</strong>。</p>
+<p>关键渲染路径：</p>
+<ul>
+<li><strong>优化服务器响应时间</strong></li>
+<li><strong>资源加载优先级</strong></li>
+<li><strong>阻塞渲染的资源</strong></li>
+</ul>
+<h4 id="优化服务器响应时间"><a href="#优化服务器响应时间" class="headerlink" title="优化服务器响应时间"></a>优化服务器响应时间</h4><p>一个关键因素<strong>TTFB</strong>（首次字节时间），如果跑慢了，后面的<em><strong>LCP</strong></em>无论如何都会收到影响</p>
+<p>最佳<strong>TTFB</strong>时间是<strong>0.8秒以内</strong></p>
+<blockquote>
+<p><strong>TTFB</strong>：是衡量用户点击链接到服务器返回的第一个字节所需的时间<br>包括三个阶段：</p>
+<ul>
+<li>网络延迟：客户端发生请求到服务器所需时间</li>
+<li>服务器处理时间：服务器运行代码、查询数据库、生成<em>HTML</em>的时间</li>
+<li>响应时间：服务器将响应的第一个字节发送回客户端的时间</li>
+</ul>
+</blockquote>
+<p>优化方案：</p>
+<ul>
+<li>后端代码与数据库</li>
+<li><strong>内容分发网络（CDN）于边缘计算</strong><ul>
+<li>CDN的工作原理：<ol>
+<li><em>DNS的引导</em>：CDN的服务商通过特殊的DNS解析技术，引导用户的请求到<strong>地理位置离他们最近的CDN节点</strong>（或者Pop）</li>
+<li><em>缓存检查</em>：最近的这个CDN节点会检查它的本地存储中是否有所请求的资源</li>
+<li><em>内容交付</em>：<ol>
+<li><em>缓存命中</em>：如果存在这个资源，节点就会立即发送给用户。这是最快的路径，能大幅度减少<em><strong>LCP</strong></em>。</li>
+<li><em>缓存未命中</em>：如果资源不在本地，就会去请求原始服务器，把响应回来的资源复制出副本存在本地，同时把资源发送给用户。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>&#x3D;&#x3D;边缘计算：CDN的进阶版本&#x3D;&#x3D;</li>
+</ul>
+</li>
+<li>缓存策略：[[HTTP 缓存]]</li>
+</ul>
+<h4 id="资源加载优先级"><a href="#资源加载优先级" class="headerlink" title="资源加载优先级"></a>资源加载优先级</h4><p>即使<strong>服务器响应时间</strong>很快，浏览器在解析<em>HTML</em>时，如果不加予干预，它可能会平等的对待所有资源，或者因为遇到堵塞的<em>CSS</em>或<em>JS</em>而延后发现<em><strong>LCP</strong></em>元素所需的资源。</p>
+<p>我们的目标是需要使用<strong>预加载指令</strong>来告诉浏览器，这个资源需要立即下载。</p>
+<p><code>Preload</code><br>可以在<em>link</em>标签加上属性<code>rel=preload</code>，当预加载扫描器发现<code>Preload</code>后，它会立即启动对该资源的下载，并赋予<strong>极高优先级</strong><br>有时候，存在多个<strong>预加载资源</strong>时，浏览器还是没办法确定哪个优先级更高，所以我们还有个更高级的用法，是在<code>rel=preload</code>的基础上再结合<code>fetchpriority=&quot;high&quot;</code>,</p>
+<blockquote>
+<p>我们可以给<em><strong>LCP</strong></em>元素做预加载，进而<em><strong>LCP</strong></em>所需时间。</p>
+</blockquote>
+<h4 id="阻塞渲染的资源"><a href="#阻塞渲染的资源" class="headerlink" title="阻塞渲染的资源"></a>阻塞渲染的资源</h4><p>即使服务器响应速度、LCP资源也提前加载，但是浏览器在<strong>解析</strong>和<strong>渲染</strong>过程中遇到堵塞的CSS和JS，整个页面的首次绘制仍然会被暂停。</p>
+<p>⚠️阻塞机制</p>
+<ul>
+<li><em>CSS</em>：CSS会暂停渲染，因为浏览器需要完整的CSSOM才开始渲染。这是因为CSS规则可以影响页面上的任何元素，所以，当浏览器遇到外部的<code>&lt;link rel=&quot;stylesheet &gt;&quot;</code>标签时，它会暂停渲染，直到CSS文件下载并解析完毕。</li>
+<li><em>JavaScript</em>：浏览器遇到<code>&lt;script&gt;</code>标签时,JS会暂停HTML解析，直到JS文件下载、解析和执行完毕，这是因为<strong>JS有可能会改变DOM结构</strong></li>
+</ul>
+<h5 id="关键CSS"><a href="#关键CSS" class="headerlink" title="关键CSS"></a><strong>关键CSS</strong></h5><p>核心思路，只取出最关键、刚好满足首页渲染的CSS，而延迟其他非关键CSS的加载</p>
+<p>优化技术：</p>
+<ul>
+<li><em>提取关键CSS</em>：使用第三方工具分析并将这些关键规则提取出来，插入到<code>head</code>中的<code>style</code>标签。<ul>
+<li>&#x3D;&#x3D;需要注意，虽然这样会增加html的体积，但是正向收益还是可观的&#x3D;&#x3D;</li>
+</ul>
+</li>
+<li><em>延迟非关键的CSS</em>：<ul>
+<li>使用<code>media=&quot;print&quot;</code>欺骗浏览器，让浏览器认为这个样式表只用于打印，所以下载时不阻塞渲染。</li>
+<li>使用<code>rel=&quot;preload&quot;</code>预加载法，不阻塞渲染，能以高优先级尽快下载资源。</li>
+</ul>
+</li>
+</ul>
+<p><strong>延迟JavaScript加载</strong><br>对不阻塞首次渲染的脚步，使用<code>async</code>和<code>defer</code>（依赖DOM，在<code>ContentDownload</code>之前加载），使其在后台下载，不阻塞<em>HTML</em>解析。</p>
+<h3 id="INP"><a href="#INP" class="headerlink" title="INP"></a><em><strong>INP</strong></em></h3><p>衡量用户从交互到浏览器<strong>绘制出视觉反馈</strong>所需时间</p>
+<p>一个优秀的INP时间为<strong>200毫秒</strong>以内，超过这个值，用户就会感觉到卡顿。</p>
+<p>首先我们要知道INP的时间分为三个阶段：</p>
+<ol>
+<li><strong>输入延迟</strong><ol>
+<li>用户交互（点击按钮）到出发事件函数的时间</li>
+<li>延迟原因：会受到大型JavaScript文件加载或者执行一个耗时的函数。</li>
+</ol>
+</li>
+<li><strong>处理时间</strong>（<em>主要</em>）<ol>
+<li>事件函数触发，执行的JavaScript代码的所需时间</li>
+<li>延迟原因：JavaScript代码本身运行耗时过大，或者进行大量的DOM操作</li>
+</ol>
+</li>
+<li><strong>呈现延迟</strong><ol>
+<li>事件处理程序运行完成后，到浏览器实际绘制所需时间。</li>
+<li>延迟原因：浏览器需要重新计算新的样式、进行布局和绘制。可能因为之前主线程的繁忙而被推迟</li>
+</ol>
+</li>
+</ol>
+<p>我们主要从影响最大的<strong>处理时间</strong>来优化，处理时间为什么最具影响力呢，因为在JavaScript中如果一个代码执行超过50ms，它就会被认为是<strong>长任务</strong>。</p>
+<blockquote>
+<p>🚨瓶颈：长任务。<br>长任务运行期间，主线程完全被占用，无法执行以下操作。</p>
+<ol>
+<li>响应其他用户输入</li>
+<li>处理网络事件</li>
+<li>页面渲染</li>
+</ol>
+</blockquote>
+<p>解决这个问题的核心策略是：<strong>将长任务分解成小块，并允许主线程在小块之间“喘息”（Yielding）</strong>。</p>
+<h4 id="任务分解与-yielding（喘息）"><a href="#任务分解与-yielding（喘息）" class="headerlink" title="任务分解与 yielding（喘息）"></a>任务分解与 yielding（喘息）</h4><p>使用<code>setTime(0)</code>来把长任务拆成多个短任务，运用宏任务机制来给主线程喘息的机会。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">chunkedTask</span>(<span class="params">items</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> chunkSize = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">processChunk</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 处理 100 个项目</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; chunkSize &amp;&amp; i &lt; items.<span class="property">length</span>; j++, i++) &#123;</span><br><span class="line">      <span class="comment">// 耗时操作...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (i &lt; items.<span class="property">length</span>) &#123;</span><br><span class="line">      <span class="comment">// 关键步骤：使用 setTimeout(0) 将剩余任务推迟到下一个事件循环周期</span></span><br><span class="line">      <span class="built_in">setTimeout</span>(processChunk, <span class="number">0</span>); </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">processChunk</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&#x3D;&#x3D;yielding（喘息）：空出来的喘息时间，可以用于上面的<em>输入延迟</em>和<em>呈现延迟</em>两个阶段。&#x3D;&#x3D;</p>
+<h4 id="Web-Worker"><a href="#Web-Worker" class="headerlink" title="Web Worker"></a>Web Worker</h4><p><em>Web Worker</em>主要的工作原理就是将JavaScript代码放到<strong>后台线程</strong>中去执行，从而不影响主线程的运行。</p>
+<p>优点：</p>
+<ul>
+<li>非阻塞</li>
+<li>响应性</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>无法操作<em>DOM</em></li>
+</ul>
+<p>但是因为是后台线程，是一个独立的环境，所以没有办法操作<em>DOM</em>，所以只适合处理复杂的数学计算和加密解密等操作。</p>
+<p>因为没有办法去操作<em>DOM</em>，所以Web Worker是通过<strong>消息传递</strong>去通知主线程：我这边数据算好了，你那边可以执行渲染操作了，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主线程代码示例</span></span><br><span class="line">worker.<span class="property">onmessage</span> = <span class="keyword">function</span>(<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="comment">// 当 Worker 线程发送数据回来时，这个回调函数就会被触发</span></span><br><span class="line">  <span class="keyword">const</span> result = event.<span class="property">data</span>;</span><br><span class="line">  <span class="title function_">updateUI</span>(result); <span class="comment">// 在这里安全地更新 DOM</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>Web Worker</strong>的消息传递，也是回调的一种，所以会加入到<em>Call Back Queue</em>中等待执行</p>
+</blockquote>
+<h3 id="昂贵的DOM操作"><a href="#昂贵的DOM操作" class="headerlink" title="昂贵的DOM操作"></a>昂贵的DOM操作</h3><p>真正大的开销就是<strong>重排（Layout）</strong>；</p>
+<p>🚨陷阱：<em>强制同步布局</em><br>通常发生在<em>写入</em>完成后，再<em>读去</em>元素的属性。</p>
+<p>解决方案：主要一个优化手段就是集中处理DOM，<strong>读取</strong>和<strong>写入</strong>操作完全分开。利用<code>setTime(0)</code>去分隔读和写，写入时不会受<em>强制同步布局影响</em></p>
+<h2 id="CLS"><a href="#CLS" class="headerlink" title="CLS"></a><em><strong>CLS</strong></em></h2><p><strong>累积布局偏移</strong><br>衡量的是页面加载过程中，<strong>非预期</strong>的视觉内容移动的累积总分。</p>
+<p>优秀的CLS总分应该<strong>低于0.1</strong></p>
+<p>分数计算公式：<br>$$CLS &#x3D; \text{Impact Fraction} \times \text{Distance Fraction}$$</p>
+<ul>
+<li>Impact Fraction（影响分数）：布局移动后，受影响元素在视图中所占区域的比例。</li>
+<li>Distance Fraction（距离分数）：受影响元素在视口中移动的距离占视口尺寸的比例。</li>
+</ul>
+<p>影响CLS分数的罪魁祸首有哪些：</p>
+<ul>
+<li>没有设置尺寸的图片</li>
+<li>延时加载的字体</li>
+<li>动态注入的广告</li>
+</ul>
+<h4 id="解决没有尺寸的媒体"><a href="#解决没有尺寸的媒体" class="headerlink" title="解决没有尺寸的媒体"></a>解决没有尺寸的媒体</h4><p><code>aspect-ratio：【width】/【height】</code>设置宽高比。让容器始终保持一个特定的宽高比。</p>
+<p><strong>关键点:</strong> 无论这个容器的宽度是多少，它的高度都会根据这个 <code>aspect-ratio</code> 自动计算并被 <strong>锁定</strong>。这样，即使图片文件本身还没加载完成，浏览器也已经为它预留了一个完美的矩形空间。</p>
+<p>因为空间是预留的，所以当图片加载完成时，它只会填充这个预留空间，而<strong>不会</strong>向下推挤任何内容，从而<strong>消除</strong>了由图片加载导致的 CLS。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/" data-id="cuidF8QMBFUnHZWPhmwLsJiwb" data-title="浏览器的性能指标" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/02/13/%E6%83%B3%E6%B3%95/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          客户端 Mock 解决方案
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/10/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E7%BC%93%E5%AD%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">HTTP 缓存</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">团队协作</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaScript/" style="font-size: 16.67px;">JavaScript</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 13.33px;">浏览器</a> <a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 10px;">缓存</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/18/%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/">关于使用 IndexDB 的坑</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/13/%E6%83%B3%E6%B3%95/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">客户端 Mock 解决方案</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">浏览器的性能指标</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E7%BC%93%E5%AD%98/">HTTP 缓存</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E8%B7%A8%E5%9F%9F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">跨域的解决方案</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 but0nly<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
