@@ -9,13 +9,14 @@
   <meta name="description" content="轻量级浏览器端网络 Mock 工具技术方案1. 项目背景1.1 现状与痛点在前后端分离的开发模式中，前端开发往往依赖后端 API 的完成度。当后端接口尚未就绪或需要模拟特定异常场景（如 500 错误、超时、特定数据结构）时，开发人员通常面临以下困境：  硬编码 Mock： 在业务代码中写入 Mock 数据，导致代码污染，上线前需手动清理，风险较高。 重型工具依赖： 使用 Charles&#x2F;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="客户端 Mock 解决方案">
-<meta property="og:url" content="https://but0nly.github.io/2025/11/30/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/index.html">
+<meta property="og:url" content="https://but0nly.github.io/2024/02/13/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/index.html">
 <meta property="og:site_name" content="but0nly的个人博客">
 <meta property="og:description" content="轻量级浏览器端网络 Mock 工具技术方案1. 项目背景1.1 现状与痛点在前后端分离的开发模式中，前端开发往往依赖后端 API 的完成度。当后端接口尚未就绪或需要模拟特定异常场景（如 500 错误、超时、特定数据结构）时，开发人员通常面临以下困境：  硬编码 Mock： 在业务代码中写入 Mock 数据，导致代码污染，上线前需手动清理，风险较高。 重型工具依赖： 使用 Charles&#x2F;">
 <meta property="og:locale">
-<meta property="article:published_time" content="2025-11-30T11:47:40.738Z">
-<meta property="article:modified_time" content="2025-11-30T11:51:57.984Z">
+<meta property="article:published_time" content="2024-02-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-11-30T14:16:43.244Z">
 <meta property="article:author" content="but0nly">
+<meta property="article:tag" content="前端">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="but0nly的个人博客" type="application/atom+xml">
@@ -75,10 +76,14 @@
       <div class="outer">
         <section id="main"><article id="post-客户端 Mock 解决方案" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/11/30/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="article-date">
-  <time class="dt-published" datetime="2025-11-30T11:47:40.738Z" itemprop="datePublished">2025-11-30</time>
+    <a href="/2024/02/13/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="article-date">
+  <time class="dt-published" datetime="2024-02-12T16:00:00.000Z" itemprop="datePublished">2024-02-13</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">团队协作</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -202,17 +207,19 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://but0nly.github.io/2025/11/30/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" data-id="cuidJJBZ3_ONTUma-oCLdiD6_" data-title="客户端 Mock 解决方案" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      <a data-url="https://but0nly.github.io/2024/02/13/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" data-id="cuidJJBZ3_ONTUma-oCLdiD6_" data-title="客户端 Mock 解决方案" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2025/11/30/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2025/01/18/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Neuer</strong>
       <div class="article-nav-title">
         
@@ -222,7 +229,7 @@
     </a>
   
   
-    <a href="/2025/11/30/%E5%85%B3%E4%BA%8E%E6%88%91/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/09/30/%E5%85%B3%E4%BA%8E%E6%88%91/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Älter</strong>
       <div class="article-nav-title">but0nly的个人博客</div>
     </a>
@@ -238,18 +245,39 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%A2%E9%98%9F%E5%8D%8F%E4%BD%9C/">团队协作</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 10px;">缓存</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">November 2025</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
     </div>
   </div>
 
@@ -262,15 +290,15 @@
       <ul>
         
           <li>
-            <a href="/2025/11/30/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/">关于使用 IndexDB 的坑</a>
+            <a href="/2025/01/18/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/">关于使用 IndexDB 的坑</a>
           </li>
         
           <li>
-            <a href="/2025/11/30/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">客户端 Mock 解决方案</a>
+            <a href="/2024/02/13/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">客户端 Mock 解决方案</a>
           </li>
         
           <li>
-            <a href="/2025/11/30/%E5%85%B3%E4%BA%8E%E6%88%91/">but0nly的个人博客</a>
+            <a href="/2023/09/30/%E5%85%B3%E4%BA%8E%E6%88%91/">but0nly的个人博客</a>
           </li>
         
       </ul>
