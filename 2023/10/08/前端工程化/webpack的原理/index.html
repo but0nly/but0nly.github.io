@@ -4,20 +4,20 @@
   <meta charset="utf-8">
   
   
-  <title>关于使用 IndexDB 的坑 | but0nly的个人博客</title>
+  <title>Webpack的原理 | but0nly的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="由于IndexDB 如果频繁更新的话会导致数据丢失，跟SQL一样。 解决方案内存缓存 + 节流 + 批量写入  创建一个JS对象，用于存储每次操作的key和value； 创建一个autoSave方法，里面就是通过创建readwrite事务，然后put新的配置信息。 给autoSave添加节流，每次触发1s后执行。 创建一个JS赋值函数，附带监听JS对象的赋值是否存在&#x3D;&#x3D;变化&amp;#">
+  <meta name="description" content="作用webpack是一个打包器，主要目标将多种模块打包成浏览库可以加载执行的文件。 核心概念 entry（入口） Dependency Graph（依赖图） output（输出） loaders（加载器） plugins（插件）  打包流程 初始化（读取配置，创建Compiler） 读取配置：加载（webpack.config.json）文件中的配置（Entry\output\loaders\pl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于使用 IndexDB 的坑">
-<meta property="og:url" content="https://but0nly.github.io/2025/01/18/%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/index.html">
+<meta property="og:title" content="Webpack的原理">
+<meta property="og:url" content="https://but0nly.github.io/2023/10/08/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/webpack%E7%9A%84%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="but0nly的个人博客">
-<meta property="og:description" content="由于IndexDB 如果频繁更新的话会导致数据丢失，跟SQL一样。 解决方案内存缓存 + 节流 + 批量写入  创建一个JS对象，用于存储每次操作的key和value； 创建一个autoSave方法，里面就是通过创建readwrite事务，然后put新的配置信息。 给autoSave添加节流，每次触发1s后执行。 创建一个JS赋值函数，附带监听JS对象的赋值是否存在&#x3D;&#x3D;变化&amp;#">
+<meta property="og:description" content="作用webpack是一个打包器，主要目标将多种模块打包成浏览库可以加载执行的文件。 核心概念 entry（入口） Dependency Graph（依赖图） output（输出） loaders（加载器） plugins（插件）  打包流程 初始化（读取配置，创建Compiler） 读取配置：加载（webpack.config.json）文件中的配置（Entry\output\loaders\pl">
 <meta property="og:locale">
-<meta property="article:published_time" content="2025-01-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-11-30T14:16:21.953Z">
+<meta property="article:published_time" content="2023-10-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-11-30T15:27:06.924Z">
 <meta property="article:author" content="but0nly">
 <meta property="article:tag" content="前端">
-<meta property="article:tag" content="缓存">
+<meta property="article:tag" content="工程化">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="but0nly的个人博客" type="application/atom+xml">
@@ -75,10 +75,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-问题/关于使用IndexDB的坑" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-前端工程化/webpack的原理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/01/18/%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/" class="article-date">
-  <time class="dt-published" datetime="2025-01-17T16:00:00.000Z" itemprop="datePublished">2025-01-18</time>
+    <a href="/2023/10/08/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/webpack%E7%9A%84%E5%8E%9F%E7%90%86/" class="article-date">
+  <time class="dt-published" datetime="2023-10-07T16:00:00.000Z" itemprop="datePublished">2023-10-08</time>
 </a>
     
   <div class="article-category">
@@ -93,7 +93,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      关于使用 IndexDB 的坑
+      Webpack的原理
     </h1>
   
 
@@ -101,25 +101,68 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>由于IndexDB 如果频繁更新的话会导致数据丢失，跟SQL一样。</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>内存缓存 + 节流 + 批量写入</p>
-<ol>
-<li>创建一个JS对象，用于存储每次操作的<code>key</code>和<code>value</code>；</li>
-<li>创建一个<code>autoSave</code>方法，里面就是通过创建<code>readwrite</code>事务，然后<code>put</code>新的配置信息。</li>
-<li>给<code>autoSave</code>添加节流，每次触发1s后执行。</li>
-<li>创建一个JS赋值函数，附带监听JS对象的赋值是否存在&#x3D;&#x3D;变化&#x3D;&#x3D;</li>
-<li>如果存在变化就<code>autoSave</code></li>
-<li>完美解决批量更新导致数据丢失的<em>Bug</em></li>
+        <h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p><strong>webpack</strong>是一个打包器，主要目标将多种模块打包成浏览库可以加载执行的文件。</p>
+<h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><ol>
+<li><em>entry</em>（入口）</li>
+<li><em>Dependency Graph</em>（依赖图）</li>
+<li><em>output</em>（输出）</li>
+<li><em>loaders</em>（加载器）</li>
+<li><em>plugins</em>（插件）</li>
+</ol>
+<h3 id="打包流程"><a href="#打包流程" class="headerlink" title="打包流程"></a>打包流程</h3><ol>
+<li><strong>初始化</strong>（读取配置，创建<em>Compiler</em>）<ol>
+<li>读取配置：加载（<code>webpack.config.json</code>）文件中的配置（Entry\output\loaders\plugins等）</li>
+<li>创建<em>Compiler</em>实例：是Webpack的一个核心对象，包含了整个打包环境和配置信息。</li>
+</ol>
+</li>
+<li><strong>编译&amp;模块构建</strong>（<em>Compiler</em>启动<em>Compilation</em>，从<strong>Entry</strong>开始编译）<ol>
+<li>生成<code>Compilation</code>编译对象：由 Compiler 创建，它负责<strong>执行</strong>一次完整的打包会话。它包含了当前打包过程中的所有信息，如模块、依赖关系、资源块（Chunks）等等</li>
+<li>Compilation 实例从配置的<em>Entry</em>入口开始。</li>
+<li>将<em>Entry</em>文件视为一个模块，然后利用<strong>Loaders</strong>来处理这个文件内容。</li>
+<li>在处理过程中，webpack会解析文件中所有的<code>import</code>、<code>require</code></li>
+</ol>
+</li>
+<li><strong>模块解析</strong>（确定所有依赖的绝对路径）<ol>
+<li>在模块中遇到<code>import &quot;react&quot;</code>或者<code>import &quot;./utils.js&quot;</code>，就会通过<em>解析机制</em>来确定文件的物理文件路径在哪。</li>
+<li>配合<strong>加载器</strong>转换，并放到<strong>依赖图</strong>中</li>
+</ol>
+</li>
+<li><strong>分块</strong><ol>
+<li>将这些模块（Chunk）组织成文件</li>
+</ol>
+</li>
+<li><strong>优化&amp;代码分割</strong><ol>
+<li>优化：<code>tree-shaking</code>、<code>minification</code></li>
+<li>代码分割：<ol>
+<li>按需加载：<code>import()</code></li>
+<li>缓存优化：将第三方库分割成<code>vendor chunk</code>，方便浏览器存储。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><strong>资源生成&amp;写入</strong><ol>
+<li>资源生成：Compilation 将内存中优化好的 chunks 映射成一个或多个<em>Assets</em></li>
+<li>写入：根据<code>webpack</code>中配置的output规则，将这些文件写入到系统中。</li>
+</ol>
+</li>
+</ol>
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><ol>
+<li>读取配置，创建<em>Compiler</em>。</li>
+<li><em>Comiler</em>启动<em>Compilation</em>，从<strong>Entry</strong>开始。</li>
+<li>模块解析：确定所有依赖的绝对路径。</li>
+<li>加载器转换：使用<strong>Loaders</strong>处理非JS文件。</li>
+<li>分块和优化：将模块组织成&#x3D;&#x3D;Chunks&#x3D;&#x3D;，并进行 <em>Tree Shaking</em> 优化。</li>
+<li>资源写入：根据<strong>Output</strong>配置生成并写入到系统中。</li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://but0nly.github.io/2025/01/18/%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/" data-id="cuidlaYBPjvLq42qJCpblxHLp" data-title="关于使用 IndexDB 的坑" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      <a data-url="https://but0nly.github.io/2023/10/08/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/webpack%E7%9A%84%E5%8E%9F%E7%90%86/" data-id="cuidOoIYLBOuuFsLk4KLlkqBS" data-title="Webpack的原理" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">工程化</a></li></ul>
 
     </footer>
   </div>
@@ -127,10 +170,19 @@
     
 <nav id="article-nav">
   
+    <a href="/2023/10/17/%E9%87%8D%E5%AD%A6%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E4%BC%98%E5%8C%96%E6%9C%89%E5%93%AA%E4%BA%9B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          前端优化有哪些
+        
+      </div>
+    </a>
   
-    <a href="/2024/02/13/%E6%83%B3%E6%B3%95/%E5%AE%A2%E6%88%B7%E7%AB%AF%20Mock%20%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a href="/2023/10/08/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/webpack%E7%9A%84%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Älter</strong>
-      <div class="article-nav-title">客户端 Mock 解决方案</div>
+      <div class="article-nav-title">Webpack的执行流程</div>
     </a>
   
 </nav>

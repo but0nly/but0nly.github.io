@@ -73,6 +73,257 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-浏览器原理/浏览器的事件机制" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6/" class="article-date">
+  <time class="dt-published" datetime="2023-10-03T16:00:00.000Z" itemprop="datePublished">2023-10-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6/">浏览器的事件机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>是JavaScript与网页内容交互的核心机制</p>
+<h4 id="常见的事件类型"><a href="#常见的事件类型" class="headerlink" title="常见的事件类型"></a>常见的事件类型</h4><ul>
+<li><em>用户交互</em>：<code>click</code>、<code>mousemove</code>、<code>keydown</code>等等</li>
+<li><em>浏览器或文档状态变化</em>：<code>load</code>（页面加载完成）、<code>resize</code>（窗口大小调整）、<code>scroll</code>滚动等。</li>
+<li><em>媒体时间</em>：<code>play</code>（视频播放）、<code>pause</code>（暂停）</li>
+</ul>
+<h4 id="事件传播"><a href="#事件传播" class="headerlink" title="事件传播"></a>事件传播</h4><ol>
+<li><strong>事件冒泡</strong>：从目标元素开始，逐级向上传播，直到<code>document</code>和<code>window</code>。大部分事件都是先冒泡。</li>
+<li><strong>事件捕获</strong>：从<code>window</code>开始，逐级向下传播。它在冒泡发生之前发生。需要显式的将<code>addEventListener()</code>的第三个参数设置为<code>ture</code>来开启捕获。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// true代表在捕获阶层处理</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListenser</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">()=&gt;</span>&#123;&#125;, ture);</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>事件委托</strong>：利用冒泡机制，可以将事件监听放到目标元素的父级上，再通过<code>event.target</code>匹配触发的目标元素。不用在每一个子元素中设置事件监听，而且更方便的管理事件函数，可以减少内存开销。</li>
+</ol>
+<h4 id="阻止机制"><a href="#阻止机制" class="headerlink" title="阻止机制"></a>阻止机制</h4><ul>
+<li><em>阻止冒泡</em>：<code>event.stopPropagation</code></li>
+<li><em>阻止默认事件</em>：<code>event.preventDefault</code>，例如表单提交、<code>&lt;a&gt;</code>标签跳转等等</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/10/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%9C%BA%E5%88%B6/" data-id="cuidldsJDed183S7sX7A3hGLh" data-title="浏览器的事件机制" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-浏览器原理/重排和重绘" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E9%87%8D%E6%8E%92%E5%92%8C%E9%87%8D%E7%BB%98/" class="article-date">
+  <time class="dt-published" datetime="2023-10-03T16:00:00.000Z" itemprop="datePublished">2023-10-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E9%87%8D%E6%8E%92%E5%92%8C%E9%87%8D%E7%BB%98/">重排和重绘</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="重排"><a href="#重排" class="headerlink" title="重排"></a>重排</h4><ul>
+<li>重新绘制元素的尺寸、布局，可能会<strong>影响其他元素</strong>。例如元素的高度变高，就会影响到平级的下一个元素。</li>
+</ul>
+<h4 id="重绘"><a href="#重绘" class="headerlink" title="重绘"></a>重绘</h4><ul>
+<li>重新绘制元素外观发生变化，例如颜色、背景</li>
+<li>元素的尺寸和布局不会发生变化，<strong>不会影响其他元素</strong></li>
+</ul>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ul>
+<li>重排一定会发生重绘，重绘不一定发生重排</li>
+<li>重排比重绘的影响更大，<strong>开销更大</strong>。</li>
+</ul>
+<h2 id="如何优化重排"><a href="#如何优化重排" class="headerlink" title="如何优化重排"></a>如何优化重排</h2><ul>
+<li>集中处理样式</li>
+<li>使用<code>display：none；</code>脱离文档流</li>
+<li>使用<code>float：left/right</code></li>
+<li>利用<code>createElementFrame</code>元素，还没绘制到页面。</li>
+<li>利用<em>BFC</em>特性，内部样式改变，不影响其他元素</li>
+<li>优化动画，使用<em>CSS3</em>和<code>requestAnimationFrame</code></li>
+<li>避免频繁使用<code>resize</code>&#x2F;<code>scroll</code>，多利用[[防抖和节流]]</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/10/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E9%87%8D%E6%8E%92%E5%92%8C%E9%87%8D%E7%BB%98/" data-id="cuidg1nagcGAoL2iKjgswLO0f" data-title="重排和重绘" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JS深度复习/Even Loop" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/10/03/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Even%20Loop/" class="article-date">
+  <time class="dt-published" datetime="2023-10-02T16:00:00.000Z" itemprop="datePublished">2023-10-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/03/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Even%20Loop/">Event Loop</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p><strong>Event Loop</strong>，意如其名：<em>事件循环 &#x2F; 事件轮询</em></p>
+<ul>
+<li><em>JS</em>是单线程执行<ul>
+<li>不能同时执行<em>JS</em>和<em>DOM</em>渲染</li>
+</ul>
+</li>
+<li>所以就有了&#x3D;&#x3D;异步&#x3D;&#x3D;这个解决方案</li>
+<li>异步要基于回调来实现</li>
+<li><strong>Event Loop</strong> 就是这个异步回调实现方案</li>
+</ul>
+<hr>
+<h2 id="浏览器环境"><a href="#浏览器环境" class="headerlink" title="浏览器环境"></a>浏览器环境</h2><h3 id="Event-Loop-的过程"><a href="#Event-Loop-的过程" class="headerlink" title="Event Loop 的过程"></a>Event Loop 的过程</h3><ul>
+<li>同步代码，一行一行的在<em>Call stack</em>中执行</li>
+<li>遇到异步代码，先”记录“起来，等待（耗时时间）在 <em>Web APIs</em> &#x2F; <em>Node APIs</em>中执行。</li>
+<li><em>Web APIs</em> 执行完成后，异步任务的回调函数就可以放入到<em>Callback Queue</em>中</li>
+<li>当 <em>Call Stack</em> 清空时（同步代码执行完了, 逻辑循环结束之后）</li>
+<li>触发<strong>Event Loop</strong>机制 （不断观察）</li>
+<li>轮询查找<em>Callback Queue</em>，如果有回调方法则放入<em>Call stack</em> 中执行</li>
+<li>然后继续轮询（像永动机一样）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>核心组件</th>
+<th>作用</th>
+<th>优先级&#x2F;调度</th>
+<th>示例</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>Call Stack</em></td>
+<td>执行同步代码</td>
+<td>最高，必须清空</td>
+<td><code>console.log</code>、<code>for()</code></td>
+<td></td>
+</tr>
+<tr>
+<td><em>Web APIs</em></td>
+<td>处理异步代码的等待时间</td>
+<td>不参与调度，只计时&#x2F;等待</td>
+<td><code>setTimeout</code>、<code>fetch()</code>、<code>addEventListener()</code></td>
+<td></td>
+</tr>
+<tr>
+<td><em>Micro-Task</em></td>
+<td>存放微任务的回调函数</td>
+<td>次高，同步代码执行完成后执行微任务，在每个宏任务执行完之后也会清空微任务</td>
+<td><code>promise</code>、<code>async/await</code></td>
+<td></td>
+</tr>
+<tr>
+<td><em>Macro-Task</em></td>
+<td>存放宏任务的回调函数</td>
+<td>最低，每个循环只取一个执行</td>
+<td><code>setTimeout</code>、<code>setImmediate</code>、<code>I/O</code>、UI渲染</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Event Loop</strong></td>
+<td>驱动机制</td>
+<td>不断检查<em>Call Stack</em>状态，驱动任务进入</td>
+<td>永远执行</td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="微任务-DOM的情况下"><a href="#微任务-DOM的情况下" class="headerlink" title="微任务 + DOM的情况下"></a>微任务 + DOM的情况下</h3><ol>
+<li><em>Call Stack</em>清空</li>
+<li>执行当前的微任务， <em>Macro-Task</em></li>
+<li>尝试<em>DOM</em>渲染</li>
+<li>触发<strong>Event Loop</strong> 机制</li>
+</ol>
+<hr>
+<h2 id="Node-js环境（浅说）"><a href="#Node-js环境（浅说）" class="headerlink" title="Node.js环境（浅说）"></a>Node.js环境（浅说）</h2><p><strong>Event Loop</strong>分为几个阶段</p>
+<ol>
+<li><em>Timers</em>阶段 （处理<code>setTimeout</code>、<code>setInterval</code>）</li>
+<li><em>Poll</em>阶段 （处理IO、网络服务）</li>
+<li><em>Check</em>阶段 （处理<code>setImmdiate</code>）</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/10/03/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/Even%20Loop/" data-id="cuidkkiCjbAbTASZGxbPO9n0O" data-title="Event Loop" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-JS深度复习/async和await" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/10/03/JS%E6%B7%B1%E5%BA%A6%E5%A4%8D%E4%B9%A0/async%E5%92%8Cawait/" class="article-date">
@@ -679,56 +930,11 @@ kitty.sayName(); // kitty
 
 
   
-    <article id="post-关于我" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/09/30/%E5%85%B3%E4%BA%8E%E6%88%91/" class="article-date">
-  <time class="dt-published" datetime="2023-09-29T16:00:00.000Z" itemprop="datePublished">2023-09-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/09/30/%E5%85%B3%E4%BA%8E%E6%88%91/">but0nly的个人博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>哈喽,大家好,我是but0nly,这是我的技术博客.<br>emmm,我会在这里分享我的一些技术总结以及关于技术上的一些想法~</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://but0nly.github.io/2023/09/30/%E5%85%B3%E4%BA%8E%E6%88%91/" data-id="cuidFVQUrwllyggfgFW_QauE5" data-title="but0nly的个人博客" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; zurück</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&laquo; zurück</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">weiter &raquo;</a>
   </nav>
 
 </section>
@@ -749,7 +955,7 @@ kitty.sayName(); // kitty
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/" rel="tag">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">工程化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%93%E5%AD%98/" rel="tag">缓存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
     </div>
   </div>
 
@@ -759,7 +965,7 @@ kitty.sayName(); // kitty
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/JavaScript/" style="font-size: 16.67px;">JavaScript</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 13.33px;">浏览器</a> <a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 10px;">缓存</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a>
+      <a href="/tags/JavaScript/" style="font-size: 17.5px;">JavaScript</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 12.5px;">工程化</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 15px;">浏览器</a> <a href="/tags/%E7%BC%93%E5%AD%98/" style="font-size: 10px;">缓存</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a>
     </div>
   </div>
 
@@ -789,15 +995,15 @@ kitty.sayName(); // kitty
           </li>
         
           <li>
-            <a href="/2023/10/07/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">浏览器的性能指标</a>
+            <a href="/2023/10/17/%E9%87%8D%E5%AD%A6%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E4%BC%98%E5%8C%96%E6%9C%89%E5%93%AA%E4%BA%9B/">前端优化有哪些</a>
           </li>
         
           <li>
-            <a href="/2023/10/06/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E7%BC%93%E5%AD%98/">HTTP 缓存</a>
+            <a href="/2023/10/08/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/webpack%E7%9A%84%E5%8E%9F%E7%90%86/">Webpack的原理</a>
           </li>
         
           <li>
-            <a href="/2023/10/05/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E8%B7%A8%E5%9F%9F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">跨域的解决方案</a>
+            <a href="/2023/10/08/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/webpack%E7%9A%84%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">Webpack的执行流程</a>
           </li>
         
       </ul>
