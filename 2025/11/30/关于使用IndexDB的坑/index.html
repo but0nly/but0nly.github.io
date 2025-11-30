@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   
   
-  <title>关于使用 IndexDB 的坑 | but0nly的技术博客</title>
+  <title>关于使用 IndexDB 的坑 | but0nly的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="由于IndexDB 如果频繁更新的话会导致数据丢失，跟SQL一样。 解决方案内存缓存 + 节流 + 批量写入  创建一个JS对象，用于存储每次操作的key和value； 创建一个autoSave方法，里面就是通过创建readwrite事务，然后put新的配置信息。 给autoSave添加节流，每次触发1s后执行。 创建一个JS赋值函数，附带监听JS对象的赋值是否存在&#x3D;&#x3D;变化&amp;#">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于使用 IndexDB 的坑">
-<meta property="og:url" content="http://example.com/2025/11/30/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/index.html">
-<meta property="og:site_name" content="but0nly的技术博客">
+<meta property="og:url" content="https://but0nly.github.io/2025/11/30/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/index.html">
+<meta property="og:site_name" content="but0nly的个人博客">
 <meta property="og:description" content="由于IndexDB 如果频繁更新的话会导致数据丢失，跟SQL一样。 解决方案内存缓存 + 节流 + 批量写入  创建一个JS对象，用于存储每次操作的key和value； 创建一个autoSave方法，里面就是通过创建readwrite事务，然后put新的配置信息。 给autoSave添加节流，每次触发1s后执行。 创建一个JS赋值函数，附带监听JS对象的赋值是否存在&#x3D;&#x3D;变化&amp;#">
 <meta property="og:locale">
 <meta property="article:published_time" content="2025-11-30T11:50:41.318Z">
@@ -18,7 +18,7 @@
 <meta property="article:author" content="but0nly">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="but0nly的技术博客" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="but0nly的个人博客" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -45,7 +45,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">but0nly的技术博客</a>
+        <a href="/" id="logo">but0nly的个人博客</a>
       </h1>
       
     </div>
@@ -66,7 +66,7 @@
         <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://but0nly.github.io"></form>
       </div>
     </div>
   </div>
@@ -109,7 +109,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2025/11/30/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/" data-id="cuidJxSVZgS71AWTLGoDjo3mc" data-title="关于使用 IndexDB 的坑" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      <a data-url="https://but0nly.github.io/2025/11/30/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8IndexDB%E7%9A%84%E5%9D%91/" data-id="cuidJxSVZgS71AWTLGoDjo3mc" data-title="关于使用 IndexDB 的坑" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
       
       
       
