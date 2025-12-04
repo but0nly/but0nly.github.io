@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>but0nly的个人博客</title>
+  <title>but0nly&#39;blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="分享一些技术总结和想法">
 <meta property="og:type" content="website">
-<meta property="og:title" content="but0nly的个人博客">
+<meta property="og:title" content="but0nly&#39;blogs">
 <meta property="og:url" content="https://but0nly.github.io/index.html">
-<meta property="og:site_name" content="but0nly的个人博客">
+<meta property="og:site_name" content="but0nly&#39;blogs">
 <meta property="og:description" content="分享一些技术总结和想法">
 <meta property="og:locale">
 <meta property="article:author" content="but0nly">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="but0nly的个人博客" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="but0nly'blogs" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -43,7 +43,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">but0nly的个人博客</a>
+        <a href="/" id="logo">but0nly&#39;blogs</a>
       </h1>
       
     </div>
@@ -277,6 +277,382 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-前端工程化/工程化基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/12/11/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time class="dt-published" datetime="2023-12-10T16:00:00.000Z" itemprop="datePublished">2023-12-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/12/11/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%9F%BA%E7%A1%80/">前端工程化基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="脚手架"><a href="#脚手架" class="headerlink" title="脚手架"></a>脚手架</h3><h4 id="CLI"><a href="#CLI" class="headerlink" title="CLI"></a>CLI</h4><p>命令行工具，是用户与脚手架工具进行交互的入口。</p>
+<ul>
+<li><strong>定义</strong>：是一个命令行程序。（比如<code>vue create</code> 或 <code>npx create-react-app</code>）</li>
+<li><strong>作用</strong>：负责接受用户输入的命令和参数，执行创建项目的逻辑。</li>
+<li><strong>功能</strong>：根据你的选择，动态地从仓库拉取文件，并修改其中的配置。</li>
+</ul>
+<p><strong>CLI管理模板的机制</strong><br>管理多个不同的模板</p>
+<ol>
+<li>独立的Git仓库</li>
+<li>独立的NPM包<blockquote>
+<p>核心思想：解耦。把项目初始化结构的配置（Boilerplate）与创建项目的工具（CLI）分开</p>
+</blockquote>
+</li>
+</ol>
+<p><strong>命令行交互</strong><br><strong><code>Inquirer.js</code> 的作用：</strong> 它抽象了底层终端的输入输出，让我们能轻松地创建用户友好的提示（Prompts），从而根据用户的选择动态生成项目配置。</p>
+<h4 id="Boilerplate"><a href="#Boilerplate" class="headerlink" title="Boilerplate"></a>Boilerplate</h4><p>脚手架工作的内容基础（预设的模板）</p>
+<ul>
+<li><strong>定义</strong>：一个预设好、可复用的项目模板</li>
+<li><strong>作用</strong>：包含了一个开箱即用的项目所需的一切，例如<ul>
+<li>文件结构：<code>src</code>、<code>plugins</code>等结构</li>
+<li>基础代码：<code>App.vue</code>或<code>index.js</code>这样的文件</li>
+<li>工程化配置：ESlint规则、webpack&#x2F;vite构建配置、TypeScript配置文件等</li>
+</ul>
+</li>
+<li><strong>功能</strong>：项目规范化的体现，确保所有新项目都遵循团队设定的最佳实践。</li>
+</ul>
+<h4 id="工程价值"><a href="#工程价值" class="headerlink" title="工程价值"></a>工程价值</h4><p>实现<strong>一致性</strong>和<strong>可维护性</strong></p>
+<ul>
+<li>项目规范化<ul>
+<li>一致的技术选型</li>
+<li>统一的代码风格</li>
+<li>标准化目录结构</li>
+</ul>
+</li>
+<li>降低维护成本<ul>
+<li>减少重复劳动</li>
+<li>集中化配置更新</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>NPM</th>
+<th>Yarn</th>
+<th>PNPM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>诞生背景</td>
+<td>Node.js默认自带</td>
+<td>Facebook创建，为了解决<strong>性能</strong>和<strong>安全性</strong>问题</td>
+<td>专注于<strong>效率</strong>和<strong>磁盘空间</strong>优化</td>
+</tr>
+<tr>
+<td>依赖机构</td>
+<td>扁平化，以解决Windows 路径过长的问题</td>
+<td>扁平化，类似npm3+</td>
+<td>内容可寻址存储。使用符号链接创建依赖</td>
+</tr>
+<tr>
+<td>安装速度</td>
+<td>较慢，新版本已经优化很多</td>
+<td>较快，有并行安装和缓存机制</td>
+<td>最快。所有模块只安装一次，通过链接引用</td>
+</tr>
+<tr>
+<td>磁盘空间</td>
+<td>占用空间大，每个项目都有完整的副本。</td>
+<td>占用空间较大。</td>
+<td>最节省，模块只在磁盘上存储一次，极大地节省了空间。</td>
+</tr>
+<tr>
+<td>幽灵依赖</td>
+<td>扁平化结构可能导致<strong>幽灵依赖</strong></td>
+<td>扁平化结构可能导致<strong>幽灵依赖</strong></td>
+<td>符号链接结构严格限制了项目中只能访问<code>package.json</code>中声明的依赖，有效解决了<strong>幽灵依赖</strong></td>
+</tr>
+</tbody></table>
+<p><strong>深入pnpm的优势</strong><br><code>pnpm</code>通过独特的符号链接机制，解决了<code>npm</code>和<code>yarn</code>在磁盘空间和幽灵依赖的痛点。</p>
+<ul>
+<li>符号链接工作原理：当你执行<code>pnpm install</code>的时候，它在项目<code>node_modules</code>目录下创建的不是实际文件，而是指向一个<strong>全局唯一存储位置</strong>的符号链接。这样，10个项目如果都依赖同一个版本的 React，磁盘上只会存一份 React 的代码。</li>
+</ul>
+<hr>
+<h3 id="本地开发"><a href="#本地开发" class="headerlink" title="本地开发"></a>本地开发</h3><table>
+<thead>
+<tr>
+<th>知识点</th>
+<th>核心作用</th>
+<th>目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dev-Server</td>
+<td><strong>运行环境</strong>：一个简易的本地HTTP服务器，用于承载、编译并实时运行你提供的前端代码。</td>
+<td>提供一个隔离、高效的沙盒环境，支持实时编译和HMR。</td>
+</tr>
+<tr>
+<td>Hot-Reload</td>
+<td><strong>状态保持</strong>：在不刷新整个页面的前提下，替换程序中被修改的模块</td>
+<td>极大的加快开发速度，并保留应用程序的当前状态。</td>
+</tr>
+<tr>
+<td>Mock</td>
+<td><strong>前后端解耦</strong>：在后端API未完成时，模拟或拦截API请求并返回预设的假数据。</td>
+<td>确保前端开发不受后端进度影响，可以独立、快速地进行。</td>
+</tr>
+<tr>
+<td>Proxy</td>
+<td><strong>跨域解决</strong>：将本地开发服务器（例如：<code>localhost：8000</code>）的API转发到真实的后端服务器（例如：<code>api.production.com</code>）</td>
+<td>解决浏览器同源策略导致的<strong>CORS</strong>跨域问题</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="构建工具"><a href="#构建工具" class="headerlink" title="构建工具"></a>构建工具</h3><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>类型</th>
+<th>核心机制</th>
+<th>主要优势</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Webpack</td>
+<td>打包器</td>
+<td>依赖图谱：将一切视为模块，从入口开始构建复杂的依赖图，进行打包。</td>
+<td><strong>成熟</strong>、<strong>功能强大</strong>：插件生态极度丰富，适用于各种复杂的生产环境需求。</td>
+</tr>
+<tr>
+<td>Gulp</td>
+<td>任务运行器</td>
+<td>流式API：基于Node.js Streams，通过管道将文件依次传递给不同的任务插件进行处理。</td>
+<td>自动化：非常适合执行重复性任务，如文件复制、图片压缩、Saas编译等。</td>
+</tr>
+<tr>
+<td>Vite</td>
+<td>构建构建</td>
+<td>ES Modules + 预构建：开发环境基于浏览器的原生ESM，仅在需要时编译；生产环境使用Rollup打包。</td>
+<td>极速：开发启动和热更新速度远超Webpack，极大提升了开发效率。</td>
+</tr>
+<tr>
+<td>Snowpack</td>
+<td>构建工具</td>
+<td>原生ESM：率先利用原生 ESM 启动DEV Server，实现按需编译。</td>
+<td>按需编译：彻底打破了传统打包模式，提高了开发速度（但目前Vite社区更有优势）</td>
+</tr>
+<tr>
+<td><strong>深入分析：Webpack和Vite</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th><strong>方面</strong></th>
+<th><strong>Webpack</strong></th>
+<th><strong>Vite</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>开发环境启动速度</strong></td>
+<td>慢。必须先完整扫描和打包所有模块。</td>
+<td>极快。利用浏览器原生 ESM，无需打包，按需加载。</td>
+</tr>
+<tr>
+<td><strong>热更新（HMR）</strong></td>
+<td>较慢。当文件修改时，需要重新打包整个模块链。</td>
+<td>极快。HMR 更新路径在原生 ESM 中，速度不受应用规模影响。</td>
+</tr>
+<tr>
+<td><strong>生产环境打包</strong></td>
+<td>强大且可定制，但配置复杂。</td>
+<td>使用 <strong>Rollup</strong>，配置简单，打包结果高效。</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="CI-CD"><a href="#CI-CD" class="headerlink" title="CI &#x2F; CD"></a>CI &#x2F; CD</h3><p><strong>什么是CI&#x2F;CD？</strong><br>CI&#x2F;CD是一套方法论和实践，旨在通过自动化，在软件开发生命周期中频繁、可靠的交互应用。</p>
+<ol>
+<li>持续集成（CI）<ol>
+<li>目标：快速检测Bug。每当代码合到主干（如<code>main</code>）分支时，自动触发构建（build）、运行单元测试和代码质量检查（linting）</li>
+</ol>
+</li>
+<li>持续交付&#x2F;部署（CD）<ol>
+<li>目标：可靠交付。<ol>
+<li>交付：代码通过所有测试后，自动准备好部署，等待人工审批发布。</li>
+<li>部署：代码通过所有测试后，自动发布到生产环境，无需人工干预。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p><strong>大体流程</strong></p>
+<ul>
+<li>CI流程<ol>
+<li>安装依赖（<code>npm install</code>）<ol>
+<li><code>Lock</code>文件重要性。版本锁死</li>
+</ol>
+</li>
+<li>运行测试与质量检查<ol>
+<li>单元测试：验证最小代码单元是否按预期工作</li>
+<li>集成测试：验证多个模块合在一起是否能够正确协作</li>
+<li>代码校验：运行<code>ESLint</code>和<code>TypeScript</code>检查</li>
+</ol>
+</li>
+<li>构建最终产物（<code>npm build</code>）<ol>
+<li>编译转换</li>
+<li>代码优化</li>
+<li>资源处理</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>CD流程<ol start="4">
+<li>存储构建产物<ol>
+<li>原理：在CI&#x2F;CD流程中，我们不会直接执行<code>npm run build</code>的那台CI机器上部署文件。原因很简单因为CI机器通常是<strong>临时</strong>的，一旦完成任务就会销毁。</li>
+<li>上传与储存：将生产的<code>dist</code>文件目录中的所有文件打包成一个<code>.zip</code>文件，然后上传到一个构建产物仓库</li>
+<li>目的：解耦<strong>Build</strong>和<strong>Deploy</strong>,避免构建机器挂了，构建产物也是安全的。</li>
+<li>可追溯与回滚：每个构建产物都有唯一的 ID 和版本号。如果部署到生产环境后发现问题，我们可以随时从仓库中取出<strong>前一个版本</strong>的产物进行<strong>快速回滚</strong>，保证服务的稳定性。</li>
+</ol>
+</li>
+<li>部署到生产环境<ol>
+<li>下载产物：CD流程或部署代理从 Artifact 仓库(如S3)下载最新版本的构建产物。</li>
+<li>环境准备：将产物解压，放置在Web服务器的特定目录下。</li>
+<li>服务切换：需要用技术手段将用户流量从旧版本平滑切换到新版本。<ol>
+<li>滚动部署：一台一台地替换，直到所有服务器都更新完毕。（风险低，如果有问题可以随时停止替换。）</li>
+<li>蓝绿部署：维护两套完全相同的生产环境，测试完毕后，一件将用户流量从蓝色环境切换到绿色环境。（极速切换和回滚，用户几乎察觉不到部署过程）</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="微前端"><a href="#微前端" class="headerlink" title="微前端"></a>微前端</h3><blockquote>
+<p>核心思想：去耦合，它将应用拆分，从而实现了 <strong>技术选择的自由</strong> 和 <strong>渐进式升级</strong>。</p>
+</blockquote>
+<p>将一个庞大的、单一技术栈的巨石应用拆分成多个独立开发、独立部署、独立运行的小型应用，最后这些小型应用在浏览器中无缝集成。</p>
+<p><strong>解决两大痛点：</strong></p>
+<ol>
+<li>组织与协作的痛点<ul>
+<li>代码冲突与评审瓶颈:  所有人都在同一个巨大的代码仓库中工作。合并请求（PR）会非常多，很容易发生代码冲突（Merge Conflicts）。此外，任何修改都需要通过少数核心维护者的评审，导致<strong>发布周期变长</strong>，成为协作的瓶颈。</li>
+<li>责任边界模糊: 团队难以按业务线（如：支付团队、商品团队、用户中心团队）进行完全独立的开发和部署。大家都在同一个代码库里，导致<strong>权责不清</strong>，协作成本极高。</li>
+</ul>
+</li>
+<li>技术与拓展的痛点<ul>
+<li>技术栈锁死: 一旦选择了 React 或 Vue 的某个版本，整个应用就被“锁死”在这个技术栈上。想要升级版本或引入一个新的框架（如 Svelte）会变得极其困难和昂贵。这阻碍了团队采用新技术来提高效率。</li>
+<li>构建与部署缓慢: 即使只修改了一个小按钮的样式，也需要<strong>重新构建和部署</strong>整个庞大的应用。这使得 CI&#x2F;CD 流程变慢，严重拖慢了反馈周期和发布频率。</li>
+</ul>
+</li>
+</ol>
+<p><strong>物理拆分后</strong></p>
+<ol>
+<li>明确的责任边界<ul>
+<li>物理隔离即责任隔离</li>
+<li>全栈所有权</li>
+<li>结果</li>
+</ul>
+</li>
+<li>消除协作瓶颈<ul>
+<li>独立的部署周期</li>
+<li>减少代码冲突</li>
+</ul>
+</li>
+</ol>
+<p><strong>集成层如何实现隔离？</strong><br>微前端的集成层（通常由 <code>single-spa</code>、<code>Qiankun</code> 或 <code>MicroApp</code> 等框架实现）主要从两个方面入手：</p>
+<ol>
+<li><p>CSS&#x2F;样式隔离（相对简单）</p>
+<ul>
+<li><strong>命名规范：</strong> 使用 BEM 或 CSS Modules，确保组件级别的类名是唯一的。</li>
+<li><strong>Shadow DOM：</strong> 使用 Web Components 的 Shadow DOM 特性，为每个微应用创建一个隔离的 DOM 子树，样式完全无法泄漏到外部或从外部泄漏进来。</li>
+</ul>
+</li>
+<li><p>JavaScript 沙箱（JS Isolation - 技术难度高）<br>这是防止全局污染的核心。最流行的做法是实现一个 <strong>JS 沙箱（Sandbox）</strong>，让每个微应用认为自己是运行在一个<strong>干净的、独立的 <code>window</code> 环境</strong>中。</p>
+</li>
+</ol>
+<ul>
+<li>如何实现：使用 Proxy 创建代理，拦截写入，局部存储（将这个修改存储到沙箱内部的字典当中）</li>
+</ul>
+<p><strong>核心价值观</strong><br>业务敏捷性</p>
+<ul>
+<li>解耦组织</li>
+<li>解耦技术栈</li>
+<li>解耦应用<br>敏捷性意味着前端团队可以根据市场需求，<strong>更快、更频繁、更可靠</strong>地交付新功能，而不是被单一的代码库或漫长的发布周期所拖累。</li>
+</ul>
+<p><strong>变更检测</strong><br>它让CI&#x2F;CD知道哪些部分需要工作，哪些部分可以跳过。</p>
+<p>大的代码仓库（Monorepo）</p>
+<ol>
+<li>物理隔离：每个微应用（如 <code>/cart</code>、<code>/user</code>）都有自己独立的文件夹，包含自己的 <code>package.json</code>、<code>vite.config.js</code> 和 CI 配置文件。</li>
+<li>变更检查：CI&#x2F;CD 系统（如 GitHub Actions 或 Jenkins）在收到新的代码提交时，会先检查这次提交<strong>修改了哪些文件</strong>。</li>
+<li>精确执行：如果发现只有 <code>/cart</code> 文件夹下的文件发生了变化，CI&#x2F;CD 就会执行一个<strong>条件判断</strong>：<ul>
+<li><strong>只运行</strong> <code>/cart</code> 微应用的 <code>npm install</code>、<code>npm run test</code> 和 <code>npm run build</code>。</li>
+<li><strong>完全跳过</strong> <code>/user</code>、<code>/product</code> 等未修改的微应用的相关流程。</li>
+</ul>
+</li>
+</ol>
+<p>变更检测逻辑</p>
+<ol>
+<li>识别变更文件<ol>
+<li>CI会使用git命令来比较当前分钟和目标分支之间的差异，从而获取所被修改的文件列表</li>
+</ol>
+</li>
+<li>使用条件判断<ol>
+<li>一旦有了文件列表，就可以在CI配置文件中添加条件判断，让工作流只在特定路径下的文件被修改时执行。</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h3 id="BFF"><a href="#BFF" class="headerlink" title="BFF"></a>BFF</h3><p>前端应用在尝试直接与多个后端微服务通信时，最容易出现两个核心问题。</p>
+<ol>
+<li>性能与”聊天“问题<ol>
+<li>痛点：如果一个页面需要聚合展示三个模块的信息，需要发出3个独立的HTTP请求。如果页面复杂，请求数量会更多。</li>
+<li>后果：增加请求的<strong>往返延迟</strong></li>
+</ol>
+</li>
+<li>数据聚合与处理的复杂性<ol>
+<li>痛点：如果每个微服务返回的数据结构都是通用的，不一定完全匹配前端的页面需求。</li>
+<li>后果：前端必须自己负责数据的<strong>聚合</strong>、<strong>转换</strong>和<strong>裁剪</strong></li>
+</ol>
+</li>
+</ol>
+<p><strong>解决方案：BFF（Back end for Front end）</strong><br>专为前端应用定制的中间服务层。</p>
+<p>解决了：</p>
+<ol>
+<li>减少请求次数：BFF数据聚合。</li>
+<li>数据整形：负责将转换、裁剪后的数据返回给前端。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://but0nly.github.io/2023/12/11/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%9F%BA%E7%A1%80/" data-id="cuidA8IoiCxtYMOkQUSsCPdHC" data-title="前端工程化基础" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag">工程化</a></li></ul>
 
     </footer>
   </div>
@@ -1140,86 +1516,6 @@
 
 
   
-    <article id="post-浏览器原理/从URL到页面展示全流程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/10/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E4%BB%8EURL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA%E5%85%A8%E6%B5%81%E7%A8%8B/" class="article-date">
-  <time class="dt-published" datetime="2023-10-03T16:00:00.000Z" itemprop="datePublished">2023-10-04</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/10/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E4%BB%8EURL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA%E5%85%A8%E6%B5%81%E7%A8%8B/">从输入URL到页面展示的完整过程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <table>
-<thead>
-<tr>
-<th>步骤</th>
-<th>做了什么</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>DNS</code>解析</td>
-<td>拿到域名解析后的<code>IP</code>地址，请求<code>IP</code>地址，这期间会进行<code>TCP</code>连接（三次握手）</td>
-</tr>
-<tr>
-<td>获取到<code>HTML</code>资源</td>
-<td>服务端给我们发送<code>HTML</code>资源，这时候的<code>HTML</code>还是字符串</td>
-</tr>
-<tr>
-<td>解析<code>HTML</code>源码</td>
-<td>浏览器开始解析<code>HTML</code>源码</td>
-</tr>
-<tr>
-<td>请求静态资源</td>
-<td>解析过程中发现静态资源就会去请求资源。例如<code>js</code>、<code>css</code>、图片、视频等等，如果是强缓存就不会请求，直接从本地拿</td>
-</tr>
-<tr>
-<td>把<code>HTML</code>文本转换成结构化数据</td>
-<td><code>HTML</code> 构建 <code>DOM</code>树，<code>CSS</code> 构建 <code>CSSOM</code> 树，两者结合形成<code>Render Tree</code></td>
-</tr>
-<tr>
-<td><code>Render Tree</code>绘制到页面</td>
-<td>计算各个<code>DOM</code>的尺寸、定位，最后根据<code>位置</code>信息填充像素到页面</td>
-</tr>
-<tr>
-<td>遇到<code>JS</code>可能会执行</td>
-<td><code>defer</code>、<code>async</code></td>
-</tr>
-</tbody></table>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://but0nly.github.io/2023/10/04/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/%E4%BB%8EURL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA%E5%85%A8%E6%B5%81%E7%A8%8B/" data-id="cuid4B0QNekDcD9cM6JCs-vua" data-title="从输入URL到页面展示的完整过程" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1264,7 +1560,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archiv</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
     </div>
   </div>
 
@@ -1285,15 +1581,15 @@
           </li>
         
           <li>
+            <a href="/2023/12/11/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%9F%BA%E7%A1%80/">前端工程化基础</a>
+          </li>
+        
+          <li>
             <a href="/2023/10/17/%E9%87%8D%E5%AD%A6%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E4%BC%98%E5%8C%96%E6%9C%89%E5%93%AA%E4%BA%9B/">前端优化有哪些</a>
           </li>
         
           <li>
             <a href="/2023/10/08/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/webpack%E7%9A%84%E5%8E%9F%E7%90%86/">Webpack的原理</a>
-          </li>
-        
-          <li>
-            <a href="/2023/10/08/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/webpack%E7%9A%84%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">Webpack的执行流程</a>
           </li>
         
       </ul>
